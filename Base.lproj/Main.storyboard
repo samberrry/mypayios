@@ -161,7 +161,7 @@
         <!--Item-->
         <scene sceneID="YBu-4q-fpe">
             <objects>
-                <viewController id="Pha-1N-J2s" sceneMemberID="viewController">
+                <viewController id="Pha-1N-J2s" customClass="QRScannerVC" customModule="mypay" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QFl-eb-KE9"/>
                         <viewControllerLayoutGuide type="bottom" id="eAC-Bz-dU1"/>
@@ -180,7 +180,7 @@
         <!--Item-->
         <scene sceneID="J4R-C5-auP">
             <objects>
-                <tableViewController id="oz6-ju-JRh" sceneMemberID="viewController">
+                <tableViewController id="oz6-ju-JRh" customClass="MainTableVC" customModule="mypay" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="HHJ-Ig-Xdz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
