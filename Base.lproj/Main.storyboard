@@ -158,7 +158,7 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
-        <!--Item-->
+        <!--QR Scanner-->
         <scene sceneID="YBu-4q-fpe">
             <objects>
                 <viewController id="Pha-1N-J2s" customClass="QRScannerVC" customModule="mypay" customModuleProvider="target" sceneMemberID="viewController">
@@ -171,13 +171,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="5Od-NT-W34"/>
+                    <tabBarItem key="tabBarItem" title="QR Scanner" id="5Od-NT-W34">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="286-hb-ING" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2364" y="201"/>
         </scene>
-        <!--Item-->
+        <!--Main Menu-->
         <scene sceneID="J4R-C5-auP">
             <objects>
                 <tableViewController id="oz6-ju-JRh" customClass="MainTableVC" customModule="mypay" customModuleProvider="target" sceneMemberID="viewController">
@@ -190,7 +192,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Fm-Dh-TG2" id="ByU-R0-gbS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -200,7 +202,9 @@
                             <outlet property="delegate" destination="oz6-ju-JRh" id="acI-0t-yk0"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="utM-PA-Tfr"/>
+                    <tabBarItem key="tabBarItem" title="Main Menu" id="utM-PA-Tfr">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
+                    </tabBarItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2E0-sQ-FoP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -296,6 +300,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="eWb-Eg-gc4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="jDS-PK-rSJ">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>

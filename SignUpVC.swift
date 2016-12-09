@@ -116,7 +116,7 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
                 alertController.addAction(okAction)
                 self.present(alertController, animated: true, completion: nil)
                 self.indicator.stopAnimating()
-                //  print("error calling POST on /todos/1")
+                //  print("error calling POST on /registration")
 //                print(error)
                 return
             }
@@ -133,14 +133,14 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
                 }
                 
                 guard let resutlCode = receivedData["resultcode"] as? Int else {
-//                    print("Could not get todoID as int from JSON")
+//                    print("Could not get resultcode as int from JSON")
                     
                     return
                 }
                 serverResultCode = resutlCode
                 
             } catch  {
-//                print("error parsing response from POST on /todos")
+//                print("error parsing response from POST on /registration")
                 return
             }
             if serverResultCode == 300
