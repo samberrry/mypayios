@@ -8,35 +8,114 @@
 
 import UIKit
 
-class SignInVC: UIViewController {
+class SignInVC: UIViewController,UITextFieldDelegate {
 
     //MARK: properties
     @IBOutlet weak var textusername: UITextField!
     @IBOutlet weak var textPassword: UITextField!
     @IBOutlet weak var buttonSignin: UIButton!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        textPassword.delegate = self
+        textusername.delegate = self
         // Do any additional setup after loading the view.
-        textPassword.isEnabled = false
-        textusername.isEnabled = false
-        buttonSignin.isEnabled = false
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func signInClicked(_ sender: UIButton) {
+        indicator.startAnimating()
+        let srvEndpoint: String = "http://hessam/signin"
+        guard let srvURL = URL(string: srvEndpoint) else {
+            return
+        }
+        var srvUrlRequest = URLRequest(url: srvURL)
+        srvUrlRequest.httpMethod = "POST"
+        
+        let username = textusername.text
+        let password = textPassword.text
+        
+        let body = BodyMaker()
+        body.appednKeyValue(key: "username", value: username!)
+        body.appednKeyValue(key: "password", value: password!)
+        
+        let bodyString  = body.getBody()
+        srvUrlRequest.httpBody = bodyString?.data(using: String.Encoding.utf8)
+        
+        let session = URLSession.shared
+        
+        let task = session.dataTask(with: srvUrlRequest) {
+            (data, response, error) in
+            var serverResultCode: Int?
+            guard error == nil else {
+                let alertController = UIAlertController(title: "Network Error", message: "Check your internet connection, or try later!", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                    print("OK")
+                }
+                alertController.addAction(okAction)
+                self.indicator.stopAnimating()
+                self.present(alertController, animated: true, completion: nil)
+                //  print("error calling POST on /registration")
+                //                print(error)
+                return
+            }
+            guard let responseData = data else {
+                //  print("Error: did not receive data")
+                return
+            }
+            
+            //  parse the result as JSON, since that's what the API provides
+            do {
+                guard let receivedData = try JSONSerialization.jsonObject(with: responseData,options: []) as? [String: Any] else {
+                    // print("Could not get JSON from responseData as dictionary")
+                    return
+                }
+                
+                guard let resutlCode = receivedData["resultcode"] as? Int else {
+                    //print("Could not get resultcode as int from JSON")
+                    
+                    return
+                }
+                serverResultCode = resutlCode
+                
+            } catch  {
+                //print("error parsing response from POST on /registration")
+                return
+            }
+            if serverResultCode == 200
+            {
+                self.performSegue(withIdentifier: "goToMainVC", sender: self)
+            }else if serverResultCode == 101 {
+                let alertController = UIAlertController(title: "Authentication Failed", message: "Your username or password is incorrect!", preferredStyle: UIAlertControllerStyle.alert)
+                let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                    print("OK")
+                }
+                alertController.addAction(okAction)
+                self.indicator.stopAnimating()
+                self.present(alertController, animated: true, completion: nil)
+            }else{
+                let alertController = UIAlertController(title: "Internal Error", message: "Check your internet connection, or try later!", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                    print("OK")
+                }
+                alertController.addAction(okAction)
+                self.indicator.stopAnimating()
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+        task.resume()
     }
-    */
 
 }

@@ -8,14 +8,19 @@
 
 import UIKit
 import AVFoundation
+import CoreLocation
 
-class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
+class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
+    CLLocationManagerDelegate{
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
+    let locationManager = CLLocationManager()
+    let region = CLBeaconRegion(proximityUUID: NSUUID(uuidString: "163EB541-B100-4BA5-8652-EB0C513FB0F4")! as UUID , identifier: "mypay")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //QR-scanner initialization code
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
@@ -53,6 +58,12 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
         view.layer.addSublayer(previewLayer);
         
         captureSession.startRunning();
+        
+        //iBeacon initialization code
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -85,17 +96,6 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
     }
     
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
-//        captureSession.stopRunning()
-//        
-//        if let metadataObject = metadataObjects.first {
-//            let readableObject = metadataObject as! AVMetadataMachineReadableCodeObject;
-//            
-//            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-//            found(code: readableObject.stringValue);
-//        }
-//        
-//        dismiss(animated: true)
-        // Check if the metadataObjects array is not nil and it contains at least one object.
         if metadataObjects == nil || metadataObjects.count == 0 {
             
             return
@@ -109,8 +109,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
             if metadataObj.stringValue != nil {
                 var myStr: String?
                 myStr = metadataObj.stringValue
-                
-                
+
                 let alertController = UIAlertController(title: "Metadata scanned", message: myStr, preferredStyle: UIAlertControllerStyle.alert)
                 
                 let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
@@ -134,14 +133,4 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

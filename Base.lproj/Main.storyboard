@@ -179,20 +179,20 @@
             </objects>
             <point key="canvasLocation" x="2364" y="201"/>
         </scene>
-        <!--Main Menu-->
+        <!--Your Bill-->
         <scene sceneID="J4R-C5-auP">
             <objects>
                 <tableViewController id="oz6-ju-JRh" customClass="MainTableVC" customModule="mypay" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="HHJ-Ig-Xdz">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="HHJ-Ig-Xdz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2Fm-Dh-TG2">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Fm-Dh-TG2" id="ByU-R0-gbS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -202,7 +202,7 @@
                             <outlet property="delegate" destination="oz6-ju-JRh" id="acI-0t-yk0"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Main Menu" id="utM-PA-Tfr">
+                    <tabBarItem key="tabBarItem" title="Your Bill" id="utM-PA-Tfr">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                     </tabBarItem>
                 </tableViewController>
@@ -235,7 +235,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Sign in"/>
                                 <connections>
-                                    <segue destination="eWb-Eg-gc4" kind="presentation" identifier="goToMainVC" id="fmh-qw-BLM"/>
+                                    <action selector="signInClicked:" destination="gF8-Ud-TsR" eventType="touchUpInside" id="Vv1-9Z-aTi"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7B-zZ-cHb">
@@ -264,7 +264,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBT-M3-hrP">
                                 <rect key="frame" x="174" y="321" width="50" height="30"/>
@@ -281,13 +281,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kfQ-k3-QiY">
+                                <rect key="frame" x="177" y="429" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="buttonSignin" destination="eCQ-UW-l2P" id="hEu-Iq-bab"/>
+                        <outlet property="indicator" destination="kfQ-k3-QiY" id="XxN-4e-bSI"/>
                         <outlet property="textPassword" destination="A9C-ye-R2h" id="odW-a8-Cxv"/>
                         <outlet property="textusername" destination="jDy-Vo-8iO" id="HWb-V1-N0J"/>
+                        <segue destination="eWb-Eg-gc4" kind="presentation" identifier="goToMainVC" id="8go-9U-qew"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BYV-te-wWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -315,6 +321,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="fmh-qw-BLM"/>
+        <segue reference="8go-9U-qew"/>
     </inferredMetricsTieBreakers>
 </document>
