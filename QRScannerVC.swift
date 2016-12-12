@@ -12,6 +12,8 @@ import CoreLocation
 
 class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     CLLocationManagerDelegate{
+    //MARK: Properties
+    @IBOutlet weak var labelLocation: UILabel!
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     let locationManager = CLLocationManager()
@@ -57,12 +59,12 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         view.layer.addSublayer(previewLayer);
         
-        captureSession.startRunning();
+        //captureSession.startRunning();
         
         //iBeacon initialization code
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
-        
+        locationManager.startMonitoring(for: region)
         
         // Do any additional setup after loading the view.
     }
@@ -133,4 +135,36 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
+    
+    //MARK: iBeacon Ranging
+    
+    
+    //
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        let alertController = UIAlertController(title: "Failure", message: "Beacon monitoring failed!", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let okAction = UIAlertAction(title: "try later", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            print("OK")
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)    }
+    //
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        let alertController = UIAlertController(title: "Failure", message: "Location Manager failed!", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let okAction = UIAlertAction(title: "try later", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            print("OK")
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    //
+    func notifyEntryToServer() -> Int {
+        return 1
+    }
+    
+    func notifyExitToServer() -> Int {
+        return 4
+    }
+    
 }

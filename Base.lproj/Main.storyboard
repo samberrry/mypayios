@@ -169,11 +169,23 @@
                     <view key="view" contentMode="scaleToFill" id="Y4B-xC-2IT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading Location..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Qa-Jb-TRE">
+                                <rect key="frame" x="115" y="245" width="145" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="QR Scanner" id="5Od-NT-W34">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="labelLocation" destination="8Qa-Jb-TRE" id="rGd-6E-h4h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="286-hb-ING" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -192,7 +204,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Fm-Dh-TG2" id="ByU-R0-gbS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -285,8 +297,16 @@
                                 <rect key="frame" x="177" y="429" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="iBeaconicon" translatesAutoresizingMaskIntoConstraints="NO" id="XeI-2P-L06">
+                                <rect key="frame" x="70" y="595" width="113" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="applepayicon" translatesAutoresizingMaskIntoConstraints="NO" id="OcZ-me-DsQ">
+                                <rect key="frame" x="226" y="578" width="80" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="buttonSignin" destination="eCQ-UW-l2P" id="hEu-Iq-bab"/>
@@ -298,7 +318,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BYV-te-wWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="914"/>
+            <point key="canvasLocation" x="136.80000000000001" y="913.49325337331345"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pDl-VI-E0Z">
@@ -320,6 +340,10 @@
             <point key="canvasLocation" x="1268" y="363"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="applepayicon" width="45" height="29"/>
+        <image name="iBeaconicon" width="122" height="33"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="8go-9U-qew"/>
     </inferredMetricsTieBreakers>

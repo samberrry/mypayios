@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate{
+    
+    //MARK: Properties
+    let locationManager = CLLocationManager()
+    let region = CLBeaconRegion(proximityUUID: NSUUID(uuidString: "163EB541-B100-4BA5-8652-EB0C513FB0F4")! as UUID , identifier: "mypay")
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -40,7 +42,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    //MARK: Beacon
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        locationManager.startRangingBeacons(in: self.region)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        locationManager.stopRangingBeacons(in: self.region)
+    }
 
 }
 

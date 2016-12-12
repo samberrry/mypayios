@@ -42,6 +42,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>iBeacon needs your access!</string>
+	<string>iBeacon needs access to Location</string>
 </dict>
 </plist>
