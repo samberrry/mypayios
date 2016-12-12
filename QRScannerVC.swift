@@ -114,7 +114,6 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
             if metadataObj.stringValue != nil {
                 var myStr: String?
                 myStr = metadataObj.stringValue
-
                 let alertController = UIAlertController(title: "Metadata scanned", message: myStr, preferredStyle: UIAlertControllerStyle.alert)
                 
                 let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
@@ -122,7 +121,6 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
                 }
                 alertController.addAction(okAction)
                 self.present(alertController, animated: true, completion: nil)
-                
             }
         }
     }
@@ -143,8 +141,24 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         labelLocation.isEnabled = false
         labelStore.isEnabled = true
-        captureSession.startRunning();
-   
+        //
+        let knownBeacon = beacons[0]
+        let serverResult: String?
+        serverResult = notifyEntryToServer(uuid: knownBeacon.proximityUUID.uuidString, major: knownBeacon.major.intValue, minor: knownBeacon.minor.intValue)
+        if let currentStore = serverResult {
+            labelStore.text = currentStore
+            captureSession.startRunning();
+            //**
+        }else{
+            let alertController = UIAlertController(title: "Server Error", message: "Beacon detection failed", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "try later", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     //
@@ -167,12 +181,12 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         self.present(alertController, animated: true, completion: nil)
     }
     //
-    func notifyEntryToServer() -> Int {
-        return 1
+    func notifyEntryToServer(uuid: String,major: Int,minor: Int) -> String {
+        return " "
     }
     
-    func notifyExitToServer() -> Int {
-        return 4
+    func notifyExitToServer() -> Int? {
+        return nil
     }
     
 }
