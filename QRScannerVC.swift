@@ -14,6 +14,8 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     CLLocationManagerDelegate{
     //MARK: Properties
     @IBOutlet weak var labelLocation: UILabel!
+    @IBOutlet weak var labelStore: UILabel!
+    
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     let locationManager = CLLocationManager()
@@ -61,6 +63,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         
         //captureSession.startRunning();
         
+        labelStore.isEnabled = false
         //iBeacon initialization code
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
@@ -137,7 +140,12 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     }
     
     //MARK: iBeacon Ranging
-    
+    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+        labelLocation.isEnabled = false
+        labelStore.isEnabled = true
+        captureSession.startRunning();
+   
+    }
     
     //
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
