@@ -147,7 +147,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         serverResult = notifyEntryToServer(uuid: knownBeacon.proximityUUID.uuidString, major: knownBeacon.major.intValue, minor: knownBeacon.minor.intValue)
         if let currentStore = serverResult {
             labelStore.text = currentStore
-            captureSession.startRunning();
+            captureSession.startRunning()
             //**
         }else{
             let alertController = UIAlertController(title: "Server Error", message: "Beacon detection failed", preferredStyle: UIAlertControllerStyle.alert)
@@ -182,6 +182,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     }
     //
     func notifyEntryToServer(uuid: String,major: Int,minor: Int) -> String {
+        
         return " "
     }
     
