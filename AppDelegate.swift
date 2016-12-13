@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate{
@@ -15,9 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     //MARK: Properties
     let locationManager = CLLocationManager()
     let region = CLBeaconRegion(proximityUUID: NSUUID(uuidString: "163EB541-B100-4BA5-8652-EB0C513FB0F4")! as UUID , identifier: "mypay")
+    let center = UNUserNotificationCenter.current()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // Notification Authorization
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            // Enable or disable features based on authorization
+        }
         return true
     }
 
@@ -46,10 +52,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     //MARK: Beacon
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        let content = UNMutableNotificationContent()
+        content.title = "Pay here with MyPay"
+        content.body = "you are close to a store"
+        content.badge = 12
+        content.sound = UNNotificationSound.default()
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5,repeats: false)
+        let request = UNNotificationRequest(identifier: "braconnotifi", content: content, trigger: nil)
+        let center = UNUserNotificationCenter.current()
+        center.add(request, withCompletionHandler: nil)
         locationManager.startRangingBeacons(in: self.region)
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        let content = UNMutableNotificationContent()
+        content.title = "Goodbye"
+        content.body = "you left the Store"
+        content.badge = 12
+        content.sound = UNNotificationSound.default()
+        //        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5,repeats: false)
+        let request = UNNotificationRequest(identifier: "beaconnotifi", content: content, trigger: nil)
+        let center = UNUserNotificationCenter.current()
+        center.add(request, withCompletionHandler: nil)
+        locationManager.startRangingBeacons(in: self.region)
         locationManager.stopRangingBeacons(in: self.region)
     }
 
