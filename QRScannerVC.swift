@@ -11,7 +11,7 @@ import AVFoundation
 import CoreLocation
 
 class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
-    CLLocationManagerDelegate{
+    CLLocationManagerDelegate,URLSessionDelegate,URLSessionDataDelegate{
     //MARK: Properties
     @IBOutlet weak var labelLocation: UILabel!
     @IBOutlet weak var labelStore: UILabel!
@@ -139,27 +139,15 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     
     //MARK: iBeacon Ranging
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+        if beacons.count > 0 {
         labelLocation.isEnabled = false
         labelStore.isEnabled = true
         //
         let knownBeacon = beacons[0]
-        let serverResult: String?
-        serverResult = notifyEntryToServer(uuid: knownBeacon.proximityUUID.uuidString, major: knownBeacon.major.intValue, minor: knownBeacon.minor.intValue)
-        if let currentStore = serverResult {
-            labelStore.text = currentStore
-            captureSession.startRunning()
-            //**
-        }else{
-            let alertController = UIAlertController(title: "Server Error", message: "Beacon detection failed", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let okAction = UIAlertAction(title: "try later", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                print("OK")
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-            dismiss(animated: true, completion: nil)
-        }
+        notifyEntryToServer(uuid: knownBeacon.proximityUUID.uuidString, major: knownBeacon.major.intValue, minor: knownBeacon.minor.intValue)
+        
         locationManager.stopRangingBeacons(in: self.region)
+        }
     }
     
     //
@@ -181,12 +169,95 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }
-    //
-    func notifyEntryToServer(uuid: String,major: Int,minor: Int) -> String {
+    //*******************************************************
+    func notifyEntryToServer(uuid: String,major: Int,minor: Int) {
+        let defaultConfiguration = URLSessionConfiguration.default
+        let delegate = self
+        let operationQueue = OperationQueue.main
+        let defaultSession = URLSession(configuration: defaultConfiguration, delegate: delegate, delegateQueue: operationQueue)
         
-        return " "
+        if let srvURL = URL(string: "http://hessam/getstore") {
+            var srvUrlRequest = URLRequest(url: srvURL)
+            srvUrlRequest.httpMethod = "POST"
+            
+            let body = BodyMaker()
+            body.appednKeyValue(key: "uuid", value: uuid)
+            body.appednKeyValue(key: "major", value: String(major))
+            body.appednKeyValue(key: "minor", value: String(minor))
+            
+            let bodyString  = body.getBody()
+            srvUrlRequest.httpBody = bodyString?.data(using: String.Encoding.utf8)
+            let dataTask = defaultSession.dataTask(with: srvUrlRequest)
+            dataTask.resume()
+        }
+    }
+    //********************************************************
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        var serverResultCode: Int?
+        var serverMetaData: String?
+        var serverStoreID: Int?
+        var serverStoreName: String?
+        let responseData = data
+        //  parse the result as JSON, since that's what the API provides
+        do {
+            guard let receivedData = try JSONSerialization.jsonObject(with: responseData,options: []) as? [String: Any] else {
+                // print("Could not get JSON from responseData as dictionary")
+                return
+            }
+            
+            guard let resutlCode = receivedData["resultcode"] as? Int else {
+                // print("Could not get resultcode as int from JSON")
+                return
+            }
+            serverResultCode = resutlCode
+            guard let metaData = receivedData["metadata"] as? String else {
+                // print("Could not get resultcode as int from JSON")
+                return
+            }
+            serverMetaData = metaData
+            guard let storeID = receivedData["storeid"] as? Int else {
+                // print("Could not get resultcode as int from JSON")
+                return
+            }
+            serverStoreID = storeID
+            guard let storeName = receivedData["storename"] as? String else {
+                // print("Could not get resultcode as int from JSON")
+                return
+            }
+            serverStoreName = storeName
+            
+        } catch  {
+            // print("error parsing response from POST on /getstore")
+            return
+        }
+        if serverResultCode == 500
+        {
+            print(serverMetaData!)
+            AppDelegate.storeName = serverStoreName
+            AppDelegate.storeID = serverStoreID
+            labelStore.text = "you are at \(serverStoreName)"
+            captureSession.startRunning()
+        }else
+        {
+            let alertController = UIAlertController(title: "Server Error", message: "Beacon detection failed!", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    //********************************************************
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        guard error == nil else {
+            print(error!)
+            return
+        }
     }
     
+    //********************************************************
     func notifyExitToServer() -> Int? {
         return nil
     }
