@@ -305,12 +305,12 @@
                                 <rect key="frame" x="177" y="429" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="iBeaconicon" translatesAutoresizingMaskIntoConstraints="NO" id="XeI-2P-L06">
-                                <rect key="frame" x="70" y="595" width="113" height="34"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="applepayicon" translatesAutoresizingMaskIntoConstraints="NO" id="OcZ-me-DsQ">
+                                <rect key="frame" x="147" y="522" width="80" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="applepayicon" translatesAutoresizingMaskIntoConstraints="NO" id="OcZ-me-DsQ">
-                                <rect key="frame" x="226" y="578" width="80" height="51"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="iBeaconicon" translatesAutoresizingMaskIntoConstraints="NO" id="XeI-2P-L06">
+                                <rect key="frame" x="131" y="602" width="113" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>

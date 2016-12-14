@@ -12,6 +12,7 @@ import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate{
+    var window: UIWindow?
     
     //MARK: Properties
     let locationManager = CLLocationManager()
