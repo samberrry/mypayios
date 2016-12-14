@@ -67,16 +67,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         let content = UNMutableNotificationContent()
-        content.title = "Goodbye"
-        content.body = "you left the Store"
+        content.title = "heey!"
+        content.body = "you left the Beacon area"
         content.badge = 12
         content.sound = UNNotificationSound.default()
         //        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5,repeats: false)
         let request = UNNotificationRequest(identifier: "beaconnotifi", content: content, trigger: nil)
         let center = UNUserNotificationCenter.current()
         center.add(request, withCompletionHandler: nil)
-        locationManager.startRangingBeacons(in: self.region)
-        locationManager.stopRangingBeacons(in: self.region)
+//        locationManager.stopRangingBeacons(in: self.region)
     }
 
 }

@@ -159,6 +159,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
             self.present(alertController, animated: true, completion: nil)
             dismiss(animated: true, completion: nil)
         }
+        locationManager.stopRangingBeacons(in: self.region)
     }
     
     //
