@@ -25,6 +25,7 @@ class SignInVC: UIViewController,UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        buttonSignin.isEnabled = true
         return true;
     }
     

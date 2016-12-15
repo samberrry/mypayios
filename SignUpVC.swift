@@ -55,6 +55,7 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        buttonSend.isEnabled = true
         return true;
     }
     
