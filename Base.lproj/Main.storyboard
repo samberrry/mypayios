@@ -184,8 +184,8 @@
                                 <color key="textColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="uJ9-IN-50E">
-                                <rect key="frame" x="177" y="283" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="9uU-bO-d4U">
+                                <rect key="frame" x="169" y="285" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
@@ -195,14 +195,14 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="indicator" destination="uJ9-IN-50E" id="Ec4-jx-QLm"/>
+                        <outlet property="indicator" destination="9uU-bO-d4U" id="T13-iU-iYT"/>
                         <outlet property="labelLocation" destination="8Qa-Jb-TRE" id="rGd-6E-h4h"/>
                         <outlet property="labelStore" destination="iuX-Wu-cFT" id="V0y-n9-dWH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="286-hb-ING" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3303" y="165"/>
+            <point key="canvasLocation" x="3301.5999999999999" y="164.16791604197903"/>
         </scene>
         <!--Your Bill-->
         <scene sceneID="J4R-C5-auP">
@@ -217,7 +217,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Fm-Dh-TG2" id="ByU-R0-gbS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -382,6 +382,6 @@
         <image name="mypay" width="87" height="87"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NgU-jA-HHI"/>
+        <segue reference="8go-9U-qew"/>
     </inferredMetricsTieBreakers>
 </document>
