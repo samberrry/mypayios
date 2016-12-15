@@ -49,6 +49,10 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
         textAge.text = String(val)
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        buttonSend.isEnabled = false
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true;

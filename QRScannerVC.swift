@@ -15,6 +15,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     //MARK: Properties
     @IBOutlet weak var labelLocation: UILabel!
     @IBOutlet weak var labelStore: UILabel!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -23,7 +24,8 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        indicator.startAnimating()
+
         //QR-scanner initialization code
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
@@ -56,11 +58,9 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
             return
         }
         
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession);
-        previewLayer.frame = view.layer.bounds;
-        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        view.layer.addSublayer(previewLayer);
-        
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.frame = view.layer.bounds
+        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         //captureSession.startRunning();
         
         labelStore.isEnabled = false
@@ -68,7 +68,6 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         locationManager.startMonitoring(for: region)
-        
         // Do any additional setup after loading the view.
     }
 
@@ -232,11 +231,20 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         }
         if serverResultCode == 500
         {
+            indicator.stopAnimating()
+            view.layer.addSublayer(previewLayer)
+            captureSession.startRunning()
             print(serverMetaData!)
             AppDelegate.storeName = serverStoreName
             AppDelegate.storeID = serverStoreID
-            labelStore.text = "you are at \(serverStoreName)"
-            captureSession.startRunning()
+//            labelStore.text = "you are at \(serverStoreName)"
+            let alertController = UIAlertController(title: "Server Error", message: "you are at \(serverStoreName)", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
         }else
         {
             let alertController = UIAlertController(title: "Server Error", message: "Beacon detection failed!", preferredStyle: UIAlertControllerStyle.alert)

@@ -33,6 +33,10 @@ class SignInVC: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        buttonSignin.isEnabled = false
+    }
+    
     @IBAction func signInClicked(_ sender: UIButton) {
         indicator.startAnimating()
         let srvEndpoint: String = "http://hessam/signin"
