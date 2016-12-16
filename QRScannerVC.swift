@@ -66,8 +66,6 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         labelStore.isEnabled = false
         //iBeacon initialization code
         locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
-        locationManager.startMonitoring(for: region)
         // Do any additional setup after loading the view.
     }
 

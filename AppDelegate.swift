@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             // Enable or disable features based on authorization
         }
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startMonitoring(for: region)
         locationManager.delegate = self
         return true
     }
