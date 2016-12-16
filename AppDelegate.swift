@@ -11,7 +11,7 @@ import CoreLocation
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate{
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate,URLSessionDelegate,URLSessionDataDelegate{
     var window: UIWindow?
     static var storeName: String?
     static var storeID: Int?
@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         locationManager.requestAlwaysAuthorization()
         locationManager.startMonitoring(for: region)
+        locationManager.startRangingBeacons(in: region)
         locationManager.delegate = self
         return true
     }
@@ -80,5 +81,118 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         center.add(request, withCompletionHandler: nil)
     }
 
+    //MARK: Ranging
+    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+        if beacons.count > 0 {
+            let knownBeacon = beacons[0]
+            notifyEntryToServer(uuid: knownBeacon.proximityUUID.uuidString, major: knownBeacon.major.intValue, minor: knownBeacon.minor.intValue)
+            
+        }
+    }
+    //*******************************************************
+    func notifyEntryToServer(uuid: String,major: Int,minor: Int) {
+        let defaultConfiguration = URLSessionConfiguration.default
+        let delegate = self
+        let operationQueue = OperationQueue.main
+        let defaultSession = URLSession(configuration: defaultConfiguration, delegate: delegate, delegateQueue: operationQueue)
+        
+        if let srvURL = URL(string: "http://hessam/getstore") {
+            var srvUrlRequest = URLRequest(url: srvURL)
+            srvUrlRequest.httpMethod = "POST"
+            
+            let body = BodyMaker()
+            body.appednKeyValue(key: "uuid", value: uuid)
+            body.appednKeyValue(key: "major", value: String(major))
+            body.appednKeyValue(key: "minor", value: String(minor))
+            
+            let bodyString  = body.getBody()
+            srvUrlRequest.httpBody = bodyString?.data(using: String.Encoding.utf8)
+            let dataTask = defaultSession.dataTask(with: srvUrlRequest)
+            dataTask.resume()
+        }
+    }
+    
+    //********************************************************
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        var serverResultCode: Int?
+        var serverMetaData: String?
+        var serverStoreID: Int?
+        var serverStoreName: String?
+        let responseData = data
+        //  parse the result as JSON, since that's what the API provides
+        do {
+            guard let receivedData = try JSONSerialization.jsonObject(with: responseData,options: []) as? [String: Any] else {
+                // print("Could not get JSON from responseData as dictionary")
+                return
+            }
+            
+            guard let resutlCode = receivedData["resultcode"] as? Int else {
+                // print("Could not get resultcode as int from JSON")
+                return
+            }
+            serverResultCode = resutlCode
+            guard let metaData = receivedData["metadata"] as? String else {
+                // print("Could not get resultcode as int from JSON")
+                return
+            }
+            serverMetaData = metaData
+            guard let storeID = receivedData["storeid"] as? Int else {
+                // print("Could not get resultcode as int from JSON")
+                return
+            }
+            serverStoreID = storeID
+            guard let storeName = receivedData["storename"] as? String else {
+                // print("Could not get resultcode as int from JSON")
+                return
+            }
+            serverStoreName = storeName
+            
+        } catch  {
+            // print("error parsing response from POST on /getstore")
+            return
+        }
+        if serverResultCode == 500
+        {
+            Store.name = serverStoreName
+            Store.storeID = serverStoreID
+            print(serverMetaData!)
+//            AppDelegate.storeName = serverStoreName
+//            AppDelegate.storeID = serverStoreID
+            
+        }
+    }
+    //********************************************************
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        guard error == nil else {
+            print(error!)
+            return
+        }
+    }
+    
+    //********************************************************
+    func notifyExitToServer() -> Int? {
+        return nil
+    }
+    
+//    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+//        let alertController = UIAlertController(title: "Failure", message: "Beacon monitoring failed!", preferredStyle: UIAlertControllerStyle.alert)
+//        
+//        let okAction = UIAlertAction(title: "try later", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+//            print("OK")
+//        }
+//        alertController.addAction(okAction)
+//        self.present(alertController, animated: true, completion: nil)    }
+//    //
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        let alertController = UIAlertController(title: "Failure", message: "Location Manager failed!", preferredStyle: UIAlertControllerStyle.alert)
+//        
+//        let okAction = UIAlertAction(title: "try later", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+//            print("OK")
+//        }
+//        alertController.addAction(okAction)
+//        self.present(alertController, animated: true, completion: nil)
+//    }
+    
 }
 

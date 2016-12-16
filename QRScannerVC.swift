@@ -10,8 +10,7 @@ import UIKit
 import AVFoundation
 import CoreLocation
 
-class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
-    CLLocationManagerDelegate,URLSessionDelegate,URLSessionDataDelegate{
+class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLSessionDelegate,URLSessionDataDelegate{
     //MARK: Properties
     @IBOutlet weak var labelLocation: UILabel!
     @IBOutlet weak var labelStore: UILabel!
@@ -19,8 +18,6 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    let locationManager = CLLocationManager()
-    let region = CLBeaconRegion(proximityUUID: NSUUID(uuidString: "163EB541-B100-4BA5-8652-EB0C513FB0F4")! as UUID , identifier: "mypay")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,13 +58,8 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        //captureSession.startRunning();
         
         labelStore.isEnabled = false
-        //iBeacon initialization code
-        self.locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
-
         // Do any additional setup after loading the view.
     }
 
@@ -86,16 +78,35 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.locationManager.startRangingBeacons(in: region)
 
 //        if (captureSession?.isRunning == false) {
 //            captureSession.startRunning();
 //        }
+        
+        if let storename = Store.name {
+            let alertController = UIAlertController(title: "Message", message: "you are at: \(storename)", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "let's scann", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+            
+            view.layer.addSublayer(previewLayer)
+            captureSession.startRunning()
+        }else{
+            let alertController = UIAlertController(title: "Failure", message: "Location detection failed!", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "try later", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.locationManager.stopRangingBeacons(in: region)
         
         if (captureSession?.isRunning == true) {
             captureSession.stopRunning();
@@ -137,140 +148,6 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
-    }
-    
-    //MARK: iBeacon Ranging
-    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
-        if beacons.count > 0 {
-        labelLocation.isEnabled = false
-        labelStore.isEnabled = true
-        //
-        let knownBeacon = beacons[0]
-        notifyEntryToServer(uuid: knownBeacon.proximityUUID.uuidString, major: knownBeacon.major.intValue, minor: knownBeacon.minor.intValue)
-        
-//        locationManager.stopRangingBeacons(in: self.region)
-        }
-    }
-    
-    //
-    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        let alertController = UIAlertController(title: "Failure", message: "Beacon monitoring failed!", preferredStyle: UIAlertControllerStyle.alert)
-        
-        let okAction = UIAlertAction(title: "try later", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-            print("OK")
-        }
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)    }
-    //
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        let alertController = UIAlertController(title: "Failure", message: "Location Manager failed!", preferredStyle: UIAlertControllerStyle.alert)
-        
-        let okAction = UIAlertAction(title: "try later", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-            print("OK")
-        }
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    //*******************************************************
-    func notifyEntryToServer(uuid: String,major: Int,minor: Int) {
-        let defaultConfiguration = URLSessionConfiguration.default
-        let delegate = self
-        let operationQueue = OperationQueue.main
-        let defaultSession = URLSession(configuration: defaultConfiguration, delegate: delegate, delegateQueue: operationQueue)
-        
-        if let srvURL = URL(string: "http://hessam/getstore") {
-            var srvUrlRequest = URLRequest(url: srvURL)
-            srvUrlRequest.httpMethod = "POST"
-            
-            let body = BodyMaker()
-            body.appednKeyValue(key: "uuid", value: uuid)
-            body.appednKeyValue(key: "major", value: String(major))
-            body.appednKeyValue(key: "minor", value: String(minor))
-            
-            let bodyString  = body.getBody()
-            srvUrlRequest.httpBody = bodyString?.data(using: String.Encoding.utf8)
-            let dataTask = defaultSession.dataTask(with: srvUrlRequest)
-            dataTask.resume()
-        }
-    }
-    //********************************************************
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        var serverResultCode: Int?
-        var serverMetaData: String?
-        var serverStoreID: Int?
-        var serverStoreName: String?
-        let responseData = data
-        //  parse the result as JSON, since that's what the API provides
-        do {
-            guard let receivedData = try JSONSerialization.jsonObject(with: responseData,options: []) as? [String: Any] else {
-                // print("Could not get JSON from responseData as dictionary")
-                return
-            }
-            
-            guard let resutlCode = receivedData["resultcode"] as? Int else {
-                // print("Could not get resultcode as int from JSON")
-                return
-            }
-            serverResultCode = resutlCode
-            guard let metaData = receivedData["metadata"] as? String else {
-                // print("Could not get resultcode as int from JSON")
-                return
-            }
-            serverMetaData = metaData
-            guard let storeID = receivedData["storeid"] as? Int else {
-                // print("Could not get resultcode as int from JSON")
-                return
-            }
-            serverStoreID = storeID
-            guard let storeName = receivedData["storename"] as? String else {
-                // print("Could not get resultcode as int from JSON")
-                return
-            }
-            serverStoreName = storeName
-            
-        } catch  {
-            // print("error parsing response from POST on /getstore")
-            return
-        }
-        if serverResultCode == 500
-        {
-            indicator.stopAnimating()
-            view.layer.addSublayer(previewLayer)
-            captureSession.startRunning()
-            print(serverMetaData!)
-            AppDelegate.storeName = serverStoreName
-            AppDelegate.storeID = serverStoreID
-//            labelStore.text = "you are at \(serverStoreName)"
-            let alertController = UIAlertController(title: "Server Error", message: "you are at \(serverStoreName)", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                print("OK")
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-        }else
-        {
-            let alertController = UIAlertController(title: "Server Error", message: "Beacon detection failed!", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                print("OK")
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
-    //********************************************************
-    
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        guard error == nil else {
-            print(error!)
-            return
-        }
-    }
-    
-    //********************************************************
-    func notifyExitToServer() -> Int? {
-        return nil
     }
     
 }
