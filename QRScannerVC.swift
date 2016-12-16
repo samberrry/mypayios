@@ -65,7 +65,9 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         
         labelStore.isEnabled = false
         //iBeacon initialization code
-        locationManager.delegate = self
+        self.locationManager.delegate = self
+        self.locationManager.requestAlwaysAuthorization()
+
         // Do any additional setup after loading the view.
     }
 
@@ -73,6 +75,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     func failed() {
         let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
@@ -83,14 +86,16 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if (captureSession?.isRunning == false) {
-            captureSession.startRunning();
-        }
+        self.locationManager.startRangingBeacons(in: region)
+
+//        if (captureSession?.isRunning == false) {
+//            captureSession.startRunning();
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.locationManager.stopRangingBeacons(in: region)
         
         if (captureSession?.isRunning == true) {
             captureSession.stopRunning();
@@ -143,7 +148,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,
         let knownBeacon = beacons[0]
         notifyEntryToServer(uuid: knownBeacon.proximityUUID.uuidString, major: knownBeacon.major.intValue, minor: knownBeacon.minor.intValue)
         
-        locationManager.stopRangingBeacons(in: self.region)
+//        locationManager.stopRangingBeacons(in: self.region)
         }
     }
     

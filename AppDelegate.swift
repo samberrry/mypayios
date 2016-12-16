@@ -66,7 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let request = UNNotificationRequest(identifier: "braconnotifi", content: content, trigger: nil)
         let center = UNUserNotificationCenter.current()
         center.add(request, withCompletionHandler: nil)
-        locationManager.startRangingBeacons(in: self.region)
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
@@ -79,7 +78,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let request = UNNotificationRequest(identifier: "beaconnotifi", content: content, trigger: nil)
         let center = UNUserNotificationCenter.current()
         center.add(request, withCompletionHandler: nil)
-//        locationManager.stopRangingBeacons(in: self.region)
     }
 
 }
