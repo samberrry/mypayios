@@ -158,6 +158,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLS
                     labelgoodsname.text = goodsname
                     labelprice.text = "\(String(price))$"
                     textfielddescription.text = description
+                    listView.isHidden = false
                 }catch{}
             }
         }
@@ -176,11 +177,14 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLS
     }
     
     @IBAction func discardClicked(_ sender: UIButton) {
-        
+        //Machen Sie nichts
+        listView.isHidden = true
     }
     
     @IBAction func addToListClicked(_ sender: UIButton) {
+     //Machen Sie etwas
         
+        listView.isHidden = true
     }
     
 }
