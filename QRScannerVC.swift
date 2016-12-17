@@ -9,15 +9,11 @@
 import UIKit
 import AVFoundation
 
-class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLSessionDelegate,URLSessionDataDelegate{
+class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
     //MARK: Properties
     @IBOutlet weak var labelLocation: UILabel!
     @IBOutlet weak var labelStore: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
-    @IBOutlet weak var labelgoodsname: UILabel!
-    @IBOutlet weak var labelprice: UILabel!
-    @IBOutlet weak var textfielddescription: UITextView!
-    @IBOutlet weak var listView: UIView!
     
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -62,7 +58,6 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLS
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         
-        listView.isHidden = true
         labelStore.isEnabled = false
         // Do any additional setup after loading the view.
     }
@@ -155,10 +150,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLS
                         return
                     }
                     let goods = Goods(goodsid: goodsid, name: goodsname, price: price, description: description)
-                    labelgoodsname.text = goodsname
-                    labelprice.text = "\(String(price))$"
-                    textfielddescription.text = description
-                    listView.isHidden = false
+                    
                 }catch{}
             }
         }
@@ -174,17 +166,6 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLS
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
-    }
-    
-    @IBAction func discardClicked(_ sender: UIButton) {
-        //Machen Sie nichts
-        listView.isHidden = true
-    }
-    
-    @IBAction func addToListClicked(_ sender: UIButton) {
-     //Machen Sie etwas
-        
-        listView.isHidden = true
     }
     
 }
