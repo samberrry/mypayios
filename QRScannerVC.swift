@@ -95,7 +95,8 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
             Store.state = false
             view.layer.addSublayer(previewLayer)
             captureSession.startRunning()
-        }else{
+        }
+        if Store.name == nil{
             let alertController = UIAlertController(title: "Failure", message: "Location detection failed!", preferredStyle: UIAlertControllerStyle.alert)
             
             let okAction = UIAlertAction(title: "try later", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
