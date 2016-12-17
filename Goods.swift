@@ -8,10 +8,12 @@
 
 import Foundation
 class Goods{
-    var name: String? = nil
-    var price: Int? = nil
-    var description: String? = nil
-    init(name: String,price: Int,description: String) {
+    let goodsid: Int
+    let name: String
+    let price: Int
+    let description: String
+    init(goodsid: Int,name: String,price: Int,description: String) {
+        self.goodsid = goodsid
         self.name = name
         self.price = price
         self.description = description
