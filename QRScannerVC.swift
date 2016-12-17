@@ -8,13 +8,16 @@
 
 import UIKit
 import AVFoundation
-import CoreLocation
 
 class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLSessionDelegate,URLSessionDataDelegate{
     //MARK: Properties
     @IBOutlet weak var labelLocation: UILabel!
     @IBOutlet weak var labelStore: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet weak var labelgoodsname: UILabel!
+    @IBOutlet weak var labelprice: UILabel!
+    @IBOutlet weak var textfielddescription: UITextView!
+    @IBOutlet weak var listView: UIView!
     
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
@@ -59,6 +62,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLS
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         
+        listView.isHidden = true
         labelStore.isEnabled = false
         // Do any additional setup after loading the view.
     }
@@ -121,21 +125,40 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLS
             return
         }
         
-        // Get the metadata object.
+        // Get the metadata object.(QR content)
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
         
         if metadataObj.type == AVMetadataObjectTypeQRCode {
             
             if metadataObj.stringValue != nil {
-                var myStr: String?
-                myStr = metadataObj.stringValue
-                let alertController = UIAlertController(title: "Metadata scanned", message: myStr, preferredStyle: UIAlertControllerStyle.alert)
-                
-                let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                    print("OK")
-                }
-                alertController.addAction(okAction)
-                self.present(alertController, animated: true, completion: nil)
+                let qrData = metadataObj.stringValue
+                let data: NSData = qrData!.data(using: String.Encoding.utf8)! as NSData
+                do{
+                    guard let receivedData = try JSONSerialization.jsonObject(with: data as Data,options: []) as? [String: Any] else {
+                        // print("Could not get JSON from responseData as dictionary")
+                        return
+                    }
+                    guard let goodsid = receivedData["goodsid"] as? Int else {
+                        // print("Could not get resultcode as int from JSON")
+                        return
+                    }
+                    guard let goodsname = receivedData["goodsname"] as? String else {
+                        // print("Could not get resultcode as int from JSON")
+                        return
+                    }
+                    guard let price = receivedData["price"] as? Int else {
+                        // print("Could not get resultcode as int from JSON")
+                        return
+                    }
+                    guard let description = receivedData["description"] as? String else {
+                        // print("Could not get resultcode as int from JSON")
+                        return
+                    }
+                    let goods = Goods(goodsid: goodsid, name: goodsname, price: price, description: description)
+                    labelgoodsname.text = goodsname
+                    labelprice.text = "\(String(price))$"
+                    textfielddescription.text = description
+                }catch{}
             }
         }
     }
@@ -150,6 +173,14 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLS
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
+    }
+    
+    @IBAction func discardClicked(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func addToListClicked(_ sender: UIButton) {
+        
     }
     
 }
