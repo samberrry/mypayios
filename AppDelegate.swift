@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         locationManager.requestAlwaysAuthorization()
         locationManager.startMonitoring(for: region)
-        locationManager.startRangingBeacons(in: region)
         locationManager.delegate = self
         return true
     }
@@ -58,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     //MARK: Beacon
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        locationManager.startRangingBeacons(in: self.region)
         let content = UNMutableNotificationContent()
         content.title = "Pay here with MyPay"
         content.body = "you are close to a store"
@@ -86,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if beacons.count > 0 {
             let knownBeacon = beacons[0]
             notifyEntryToServer(uuid: knownBeacon.proximityUUID.uuidString, major: knownBeacon.major.intValue, minor: knownBeacon.minor.intValue)
-            
+            locationManager.stopRangingBeacons(in: self.region)
         }
     }
     //*******************************************************
@@ -153,6 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         if serverResultCode == 500
         {
+            Store.state = true
             Store.name = serverStoreName
             Store.storeID = serverStoreID
             print(serverMetaData!)

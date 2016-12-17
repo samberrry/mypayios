@@ -83,7 +83,8 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLS
 //            captureSession.startRunning();
 //        }
         
-        if let storename = Store.name {
+        if  Store.state {
+            let storename = Store.name
             let alertController = UIAlertController(title: "Message", message: "you are at: \(storename)", preferredStyle: UIAlertControllerStyle.alert)
             
             let okAction = UIAlertAction(title: "let's scann", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
@@ -92,6 +93,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate,URLS
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
             
+            Store.state = false
             view.layer.addSublayer(previewLayer)
             captureSession.startRunning()
         }else{

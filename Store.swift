@@ -9,6 +9,7 @@
 import Foundation
 
 struct Store{
+    static var state = false
     static var name: String?
     static var storeID: Int?
 }
