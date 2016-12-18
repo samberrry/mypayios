@@ -154,6 +154,20 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
                     }
                     let goods = Goods(goodsid: goodsid, name: goodsname, price: price, description: description)
                     
+                    //presenting alert
+                    let alertController = UIAlertController(title: "\(goods.name)", message: "Price: \(goods.price)$ \n Description: \(goods.description)", preferredStyle: UIAlertControllerStyle.actionSheet)
+                    
+                    let okAction = UIAlertAction(title: "oks", style: .default) { (action: UIAlertAction) -> Void in
+                        alertController.dismiss(animated: true, completion: nil)
+                    }
+                    let cancelAction = UIAlertAction(title: "Screw it!", style: .cancel) { (action: UIAlertAction) -> Void in
+                        alertController.dismiss(animated: true, completion: nil)
+                    }
+                    alertController.addAction(okAction)
+                    alertController.addAction(cancelAction)
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                    
                 }catch{}
             }
         }
