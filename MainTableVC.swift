@@ -10,6 +10,7 @@ import UIKit
 
 class MainTableVC: UITableViewController {
 
+    static var goodsList = [Goods]()
     override func viewDidLoad() {
         super.viewDidLoad()
 

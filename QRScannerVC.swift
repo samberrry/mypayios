@@ -161,7 +161,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
                         alertController.dismiss(animated: true, completion: nil)
                     }
                     let cancelAction = UIAlertAction(title: "Add to list", style: .cancel) { (action: UIAlertAction) -> Void in
-                        alertController.dismiss(animated: true, completion: nil)
+                    self.addItemToBillList(goods: goods)
                     }
                     alertController.addAction(okAction)
                     alertController.addAction(cancelAction)
@@ -171,6 +171,10 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
                 }catch{}
             }
         }
+    }
+    
+    func addItemToBillList(goods: Goods) {
+        MainTableVC.goodsList.append(goods)
     }
     
     func found(code: String) {
