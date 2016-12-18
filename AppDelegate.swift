@@ -70,6 +70,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        Store.state = false
+        Store.name = nil
+        Store.storeID = nil
         let content = UNMutableNotificationContent()
         content.title = "heey!"
         content.body = "you left the Beacon area"
