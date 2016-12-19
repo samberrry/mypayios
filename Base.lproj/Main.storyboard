@@ -204,7 +204,7 @@
             </objects>
             <point key="canvasLocation" x="3301.5999999999999" y="164.16791604197903"/>
         </scene>
-        <!--Your Bill-->
+        <!--Shopping List-->
         <scene sceneID="J4R-C5-auP">
             <objects>
                 <tableViewController id="oz6-ju-JRh" customClass="MainTableVC" customModule="mypay" customModuleProvider="target" sceneMemberID="viewController">
@@ -244,10 +244,9 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="desc" destination="F9I-R5-xle" id="9sy-OC-QTw"/>
-                                    <outlet property="description" destination="F9I-R5-xle" id="FhX-VA-pvj"/>
-                                    <outlet property="itemName" destination="PS5-5b-vfK" id="Hz1-MR-LBv"/>
-                                    <outlet property="price" destination="Srr-Yh-ACG" id="2xE-FG-WgL"/>
+                                    <outlet property="labelDescription" destination="F9I-R5-xle" id="k6r-NT-eMH"/>
+                                    <outlet property="labelName" destination="PS5-5b-vfK" id="IOj-GN-s1L"/>
+                                    <outlet property="labelPrice" destination="Srr-Yh-ACG" id="7pY-WO-OaN"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -256,13 +255,11 @@
                             <outlet property="delegate" destination="oz6-ju-JRh" id="acI-0t-yk0"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Your Bill" id="utM-PA-Tfr">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" title="Shopping List" id="YWc-1L-3l8"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2E0-sQ-FoP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3303.1999999999998" y="880.20989505247383"/>
+            <point key="canvasLocation" x="4242.3999999999996" y="880.20989505247383"/>
         </scene>
         <!--Sign In-->
         <scene sceneID="7sw-Ig-bga">
@@ -371,7 +368,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="Pha-1N-J2s" kind="relationship" relationship="viewControllers" id="eMw-OD-wMv"/>
-                        <segue destination="oz6-ju-JRh" kind="relationship" relationship="viewControllers" id="xQX-KZ-MCE"/>
+                        <segue destination="udh-rg-rcy" kind="relationship" relationship="viewControllers" id="xQX-KZ-MCE"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="794-e5-ayK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -395,6 +392,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xey-bd-j3p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="913.49325337331345"/>
+        </scene>
+        <!--Shopping List-->
+        <scene sceneID="a7T-vB-c58">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udh-rg-rcy" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Shopping List" id="utM-PA-Tfr">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Z6j-X1-uJk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="oz6-ju-JRh" kind="relationship" relationship="rootViewController" id="4HA-ou-Xjb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Saf-HM-pk6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3303.1999999999998" y="880.20989505247383"/>
         </scene>
     </scenes>
     <resources>

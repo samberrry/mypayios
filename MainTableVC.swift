@@ -13,7 +13,6 @@ class MainTableVC: UITableViewController {
     static var goodsList = [Goods]()
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -43,22 +42,18 @@ class MainTableVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainMenuCell", for: indexPath) as! MainMenuCell
         let item = MainTableVC.goodsList[indexPath.row]
         // Configure the cell...
-        cell.itemName.text = item.name
-        cell.price.text = String(item.price)
-        cell.desc.text = item.description
+        cell.labelName.text = item.name
+        cell.labelPrice.text?.append("\(String(item.price))$")
+        cell.labelDescription.text = item.description
         
         return cell
     }
  
-
-    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
- 
-
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -70,7 +65,6 @@ class MainTableVC: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
- 
 
     /*
     // Override to support rearranging the table view.

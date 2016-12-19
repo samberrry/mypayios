@@ -84,7 +84,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
         
         if  Store.state {
             let storename = Store.name
-            let alertController = UIAlertController(title: "Message", message: "you are at: \(storename)", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: "Message", message: "you are at: \(storename!)", preferredStyle: UIAlertControllerStyle.alert)
             
             let okAction = UIAlertAction(title: "let's scann", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
                 print("OK")
