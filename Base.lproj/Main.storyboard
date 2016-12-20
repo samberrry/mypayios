@@ -54,6 +54,7 @@
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FOg-rb-i9n">
                                 <rect key="frame" x="0.0" y="12" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.97637468576431274" green="0.97653776407241821" blue="0.9763532280921936" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem title="Sign up" id="PzO-Qd-DIx"/>
                                 </items>
@@ -217,7 +218,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Fm-Dh-TG2" id="ByU-R0-gbS">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PS5-5b-vfK">
@@ -419,6 +420,6 @@
         <image name="mypay" width="87" height="87"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8go-9U-qew"/>
+        <segue reference="NgU-jA-HHI"/>
     </inferredMetricsTieBreakers>
 </document>
