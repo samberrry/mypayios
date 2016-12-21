@@ -253,7 +253,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="saveButton" destination="EOx-AP-L9U" id="Ejf-MB-reD"/>
-                        <outlet property="saveButtonIsClicked" destination="EOx-AP-L9U" id="Yan-zS-aax"/>
                         <outlet property="textCardName" destination="xzU-su-beF" id="Ud0-aN-hlh"/>
                         <outlet property="textCardNumber" destination="whW-xa-KeK" id="SyK-a8-3wc"/>
                         <outlet property="textCvv2" destination="GX6-5M-P8N" id="bOA-s1-NHQ"/>
