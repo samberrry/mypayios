@@ -48,7 +48,7 @@ class MainTableVC: UITableViewController {
         // Configure the cell...
         cell.labelName.text = item.name
         cell.labelPrice.text = "Price: \(String(item.price))$"
-        cell.labelDescription.text = item.description
+        cell.labelDescription.text = "Description: \(item.description)"
         
         return cell
     }
