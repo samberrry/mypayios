@@ -14,6 +14,11 @@ class MainTableVC: UITableViewController {
     var cards = [Card]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let savedCards = loadCards(){
+            cards += savedCards
+        }else{
+            print("failed to load data!")
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -75,7 +80,20 @@ class MainTableVC: UITableViewController {
         if let source = sender.source as? AddCardVC , let card = source.card
         {
             cards.append(card)
+            saveCards()
         }
+    }
+    
+    //MARK: NSCoding
+    func saveCards() {
+        let isSuccessfulsave = NSKeyedArchiver.archiveRootObject(cards, toFile: Card.ArchiveURL.path)
+        if !isSuccessfulsave {
+            print("Failed to save meals...")
+        }
+    }
+    
+    func loadCards() -> [Card]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Card.ArchiveURL.path) as? [Card]
     }
     
     /*
