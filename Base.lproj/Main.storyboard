@@ -240,10 +240,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="wt7-wS-aub">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="aVf-jz-b6v"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="aVf-jz-b6v">
+                            <connections>
+                                <action selector="cancelClicked:" destination="Qab-g7-3f2" id="ipH-8j-v4b"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" systemItem="save" id="EOx-AP-L9U"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="saveButton" destination="EOx-AP-L9U" id="Ejf-MB-reD"/>
                         <outlet property="textCardName" destination="xzU-su-beF" id="Ud0-aN-hlh"/>
                         <outlet property="textCardNumber" destination="whW-xa-KeK" id="SyK-a8-3wc"/>
                         <outlet property="textCvv2" destination="GX6-5M-P8N" id="bOA-s1-NHQ"/>

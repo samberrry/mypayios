@@ -14,27 +14,25 @@ class Card: NSObject,NSCoding{
     var cardName: String
     var expirationDate: String
     var cvv2: Int
-    var customerID: Int
-    var bankName: String
+    var bankName: String? = nil
     
     struct Propertykey {
         static let cardNumberKey = "cardNumber"
         static let cardNameKey = "cardHolderName"
         static let expirationDateKey = "expirationDate"
         static let cvv2Key = "cvv2"
-        static let customerIDKey = "customerID"
         static let bankNameKey = "bankName"
     }
     
     //Initialization
-    init(num: Int,crdName: String,exprdate: String,cvv2: Int,cusID: Int,
-         bankName: String) {
+    init(num: Int,crdName: String,exprdate: String,cvv2: Int, bankName: String?) {
         self.cardNumber = num
         self.cardName = crdName
         self.expirationDate = exprdate
         self.cvv2 = cvv2
-        self.customerID = cusID
-        self.bankName = bankName
+        if let theBankName = bankName{
+            self.bankName = theBankName
+        }
     }
     //MARK: Archiving Paths
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -46,7 +44,6 @@ class Card: NSObject,NSCoding{
         aCoder.encode(cardName,forKey: Propertykey.cardNameKey)
         aCoder.encode(expirationDate, forKey: Propertykey.expirationDateKey)
         aCoder.encode(cvv2, forKey: Propertykey.cvv2Key)
-        aCoder.encode(customerID, forKey: Propertykey.customerIDKey)
         aCoder.encode(bankName, forKey: Propertykey.bankNameKey)
     }
     
@@ -55,8 +52,7 @@ class Card: NSObject,NSCoding{
         let crdName = aDecoder.decodeObject(forKey: Propertykey.cardNameKey) as! String
         let exprdate = aDecoder.decodeObject(forKey: Propertykey.expirationDateKey) as! String
         let cvv2 = aDecoder.decodeObject(forKey: Propertykey.cvv2Key) as! Int
-        let cusID = aDecoder.decodeObject(forKey: Propertykey.customerIDKey) as! Int
         let bankname = aDecoder.decodeObject(forKey: Propertykey.bankNameKey) as! String
-        self.init(num: num,crdName: crdName,exprdate: exprdate,cvv2: cvv2,cusID: cusID,bankName: bankname)
+        self.init(num: num,crdName: crdName,exprdate: exprdate,cvv2: cvv2,bankName: bankname)
     }
 }
