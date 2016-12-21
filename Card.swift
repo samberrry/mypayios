@@ -11,7 +11,7 @@ import Foundation
 class Card: NSObject,NSCoding{
     //MARK: Properties
     var cardNumber: Int
-    var cardHolderName: String
+    var cardName: String
     var expirationDate: String
     var cvv2: Int
     var customerID: Int
@@ -19,7 +19,7 @@ class Card: NSObject,NSCoding{
     
     struct Propertykey {
         static let cardNumberKey = "cardNumber"
-        static let cardHolderNameKey = "cardHolderName"
+        static let cardNameKey = "cardHolderName"
         static let expirationDateKey = "expirationDate"
         static let cvv2Key = "cvv2"
         static let customerIDKey = "customerID"
@@ -30,7 +30,7 @@ class Card: NSObject,NSCoding{
     init(num: Int,crdName: String,exprdate: String,cvv2: Int,cusID: Int,
          bankName: String) {
         self.cardNumber = num
-        self.cardHolderName = crdName
+        self.cardName = crdName
         self.expirationDate = exprdate
         self.cvv2 = cvv2
         self.customerID = cusID
@@ -43,7 +43,7 @@ class Card: NSObject,NSCoding{
     //MARK: NSCoding
     func encode(with aCoder: NSCoder) {
         aCoder.encode(cardNumber,forKey: Propertykey.cardNumberKey)
-        aCoder.encode(cardHolderName,forKey: Propertykey.cardHolderNameKey)
+        aCoder.encode(cardName,forKey: Propertykey.cardNameKey)
         aCoder.encode(expirationDate, forKey: Propertykey.expirationDateKey)
         aCoder.encode(cvv2, forKey: Propertykey.cvv2Key)
         aCoder.encode(customerID, forKey: Propertykey.customerIDKey)
@@ -52,7 +52,7 @@ class Card: NSObject,NSCoding{
     
     required convenience init?(coder aDecoder: NSCoder) {
         let num = aDecoder.decodeObject(forKey: Propertykey.cardNumberKey) as! Int
-        let crdName = aDecoder.decodeObject(forKey: Propertykey.cardHolderNameKey) as! String
+        let crdName = aDecoder.decodeObject(forKey: Propertykey.cardNameKey) as! String
         let exprdate = aDecoder.decodeObject(forKey: Propertykey.expirationDateKey) as! String
         let cvv2 = aDecoder.decodeObject(forKey: Propertykey.cvv2Key) as! Int
         let cusID = aDecoder.decodeObject(forKey: Propertykey.customerIDKey) as! Int
