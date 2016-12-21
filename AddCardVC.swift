@@ -39,24 +39,26 @@ class AddCardVC: UIViewController,UITextFieldDelegate{
         return true
     }
 
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if saveButton == sender as! UIBarButtonItem
-        {
-            let cardName = textCardName.text
+    }
+     */
+    
+    @IBAction func saveButtonIsClicked(_ sender: UIBarButtonItem) {
+        if textCardName.text != nil && textCardNumber.text != nil && textCvv2 != nil && textExpDate != nil{
+            let cardName = textCardName.text!
             let cardNumber = Int(textCardNumber.text!)
             let cvv2 = Int(textCvv2.text!)
-            let expirationDate = textExpDate.text
-            
-            card = Card(num: cardNumber!, crdName: cardName!, exprdate: expirationDate!, cvv2: cvv2!,bankName: nil)
+            let expirationDate = textExpDate.text!
+            card = Card(num: cardNumber!, crdName: cardName, exprdate: expirationDate, cvv2: cvv2!,bankName: nil)
+            self.performSegue(withIdentifier: "unwindtolist", sender: self)
         }
     }
- 
     
     @IBAction func cancelClicked(_ sender: UIBarButtonItem) {
         navigationController!.popViewController(animated: true)

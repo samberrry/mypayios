@@ -245,17 +245,24 @@
                                 <action selector="cancelClicked:" destination="Qab-g7-3f2" id="ipH-8j-v4b"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="save" id="EOx-AP-L9U"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="save" id="EOx-AP-L9U">
+                            <connections>
+                                <action selector="saveButtonIsClicked:" destination="Qab-g7-3f2" id="0BH-IB-xsY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="saveButton" destination="EOx-AP-L9U" id="Ejf-MB-reD"/>
+                        <outlet property="saveButtonIsClicked" destination="EOx-AP-L9U" id="Yan-zS-aax"/>
                         <outlet property="textCardName" destination="xzU-su-beF" id="Ud0-aN-hlh"/>
                         <outlet property="textCardNumber" destination="whW-xa-KeK" id="SyK-a8-3wc"/>
                         <outlet property="textCvv2" destination="GX6-5M-P8N" id="bOA-s1-NHQ"/>
                         <outlet property="textExpDate" destination="Lw2-9w-kEp" id="FLu-cN-yG2"/>
+                        <segue destination="DiG-5N-1N2" kind="unwind" identifier="unwindtolist" unwindAction="unwindToShoppingListWithSender:" id="9AS-3w-zNn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewM-24-XMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="DiG-5N-1N2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5921" y="880"/>
         </scene>
