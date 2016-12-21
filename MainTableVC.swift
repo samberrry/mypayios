@@ -47,7 +47,7 @@ class MainTableVC: UITableViewController {
         let item = MainTableVC.goodsList[indexPath.row]
         // Configure the cell...
         cell.labelName.text = item.name
-        cell.labelPrice.text?.append("\(String(item.price))$")
+        cell.labelPrice.text = "Price: \(String(item.price))$"
         cell.labelDescription.text = item.description
         
         return cell
