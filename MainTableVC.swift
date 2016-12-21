@@ -72,7 +72,10 @@ class MainTableVC: UITableViewController {
     }
 
     @IBAction func unwindToShoppingList(sender: UIStoryboardSegue) {
-        
+        if let source = sender.source as? AddCardVC , let card = source.card
+        {
+            cards.append(card)
+        }
     }
     
     /*
