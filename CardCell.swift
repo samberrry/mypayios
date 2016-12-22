@@ -9,6 +9,8 @@
 import UIKit
 
 class CardCell: UITableViewCell {
+    //MARK: Properties
+    @IBOutlet weak var labelCardName: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

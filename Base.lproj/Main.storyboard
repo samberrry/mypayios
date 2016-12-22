@@ -254,9 +254,11 @@
                         <outlet property="textCardNumber" destination="whW-xa-KeK" id="SyK-a8-3wc"/>
                         <outlet property="textCvv2" destination="GX6-5M-P8N" id="bOA-s1-NHQ"/>
                         <outlet property="textExpDate" destination="Lw2-9w-kEp" id="FLu-cN-yG2"/>
+                        <segue destination="DiG-5N-1N2" kind="unwind" unwindAction="unwindToShoppingListWithSender:" id="qnc-W1-lgE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ewM-24-XMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="DiG-5N-1N2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="8247.2000000000007" y="879.31034482758628"/>
         </scene>
@@ -269,13 +271,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="uRD-Ca-aXq" customClass="CardCell" customModule="mypay" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CardCell" id="uRD-Ca-aXq" customClass="CardCell" customModule="mypay" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uRD-Ca-aXq" id="ljL-t6-IYP">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Card name : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iI6-UJ-bwx">
+                                            <rect key="frame" x="32" y="7" width="306" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="labelCardName" destination="iI6-UJ-bwx" id="13a-9D-ylP"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -284,7 +298,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Cards" id="Xhj-lb-1Yw">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="zFU-2F-chN"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="zFU-2F-chN">
+                            <connections>
+                                <action selector="backIsClicked:" destination="DoG-fX-GLf" id="wdA-ri-kri"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="oGF-Fb-BAL">
                             <connections>
                                 <segue destination="gew-K7-Ozu" kind="presentation" id="NkR-He-6bF"/>

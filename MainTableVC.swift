@@ -11,11 +11,10 @@ import UIKit
 class MainTableVC: UITableViewController {
 
     static var goodsList = [Goods]()
-    var cards = [Card]()
     override func viewDidLoad() {
         super.viewDidLoad()
         if let savedCards = loadCards(){
-            cards += savedCards
+            CardsTableVC.cards += savedCards
         }else{
             print("failed to load data!")
         }
@@ -75,26 +74,6 @@ class MainTableVC: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-
-    @IBAction func unwindToShoppingList(sender: UIStoryboardSegue) {
-        if let source = sender.source as? AddCardVC , let card = source.card
-        {
-            cards.append(card)
-            saveCards()
-        }
-    }
-    
-    //MARK: NSCoding
-    func saveCards() {
-        let isSuccessfulsave = NSKeyedArchiver.archiveRootObject(cards, toFile: Card.ArchiveURL.path)
-        if !isSuccessfulsave {
-            print("Failed to save meals...")
-        }
-    }
-    
-    func loadCards() -> [Card]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Card.ArchiveURL.path) as? [Card]
-    }
     
     /*
     // Override to support rearranging the table view.
@@ -120,5 +99,9 @@ class MainTableVC: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    //MARK: NSCoding
+    func loadCards() -> [Card]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Card.ArchiveURL.path) as? [Card]
+    }
 }

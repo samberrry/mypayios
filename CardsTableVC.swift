@@ -9,10 +9,13 @@
 import UIKit
 
 class CardsTableVC: UITableViewController {
+    
+    //MARK: Properties
+    static var cards = [Card]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -29,23 +32,22 @@ class CardsTableVC: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return CardsTableVC.cards.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
+        let item = CardsTableVC.cards[indexPath.row]
         // Configure the cell...
-
+        cell.labelCardName.text = item.cardName
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -91,5 +93,27 @@ class CardsTableVC: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func backIsClicked(_ sender: UIBarButtonItem) {
+            dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func unwindToShoppingList(sender: UIStoryboardSegue) {
+        if let source = sender.source as? AddCardVC , let card = source.card
+        {
+            let newIndexPath = NSIndexPath(row: CardsTableVC.cards.count, section:0)
+            CardsTableVC.cards.append(card)
+            tableView.insertRows(at: [newIndexPath as IndexPath], with: .bottom)
+            saveCards()
+        }
+    }
+    
+    //MARK: NSCoding
+    func saveCards() {
+        let isSuccessfulsave = NSKeyedArchiver.archiveRootObject(CardsTableVC.cards, toFile: Card.ArchiveURL.path)
+        if !isSuccessfulsave {
+            print("Failed to save meals...")
+        }
+    }
 
 }
