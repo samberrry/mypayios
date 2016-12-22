@@ -45,7 +45,7 @@ class CardsTableVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardCell", for: indexPath) as! CardCell
         let item = CardsTableVC.cards[indexPath.row]
         // Configure the cell...
-        cell.labelCardName.text = item.cardName
+        cell.labelCardName.text = "Description: \(item.cardName)"
         return cell
     }
 
@@ -112,7 +112,7 @@ class CardsTableVC: UITableViewController {
     func saveCards() {
         let isSuccessfulsave = NSKeyedArchiver.archiveRootObject(CardsTableVC.cards, toFile: Card.ArchiveURL.path)
         if !isSuccessfulsave {
-            print("Failed to save meals...")
+            print("Failed to save cards...")
         }
     }
 
