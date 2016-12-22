@@ -55,7 +55,10 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        buttonSend.isEnabled = true
+        if !(textPassword.text!.isEmpty) && !(textUsername.text!.isEmpty) && switchTerms.isOn
+        {
+            buttonSend.isEnabled = true
+        }
         return true;
     }
     
@@ -67,7 +70,7 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
                 buttonSend.isEnabled = true
             }else
             {
-                let alertController = UIAlertController(title: "Notice", message: "please, fill in the empty fields", preferredStyle: UIAlertControllerStyle.alert)
+                let alertController = UIAlertController(title: "Notice", message: "please, fill in the username and password fields", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
                     print("OK")
