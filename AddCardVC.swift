@@ -61,7 +61,7 @@ class AddCardVC: UIViewController,UITextFieldDelegate{
     }
     
     @IBAction func cancelClicked(_ sender: UIBarButtonItem) {
-        navigationController!.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
 }
