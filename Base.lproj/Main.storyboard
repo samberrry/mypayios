@@ -159,8 +159,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="QR Scanner" id="5Od-NT-W34">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
+                    <tabBarItem key="tabBarItem" title="QR Scanner" image="qr" id="5Od-NT-W34">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <connections>
                         <outlet property="indicator" destination="9uU-bO-d4U" id="T13-iU-iYT"/>
@@ -567,8 +567,8 @@
         <scene sceneID="ZJU-ZH-8hB">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ejs-md-9Hy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Shopping List" id="jwy-Gx-WD2">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
+                    <tabBarItem key="tabBarItem" title="Shopping List" image="item" id="jwy-Gx-WD2">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dII-qp-TlF">
@@ -586,7 +586,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="item" width="25" height="25"/>
         <image name="mypay" width="87" height="87"/>
+        <image name="qr" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="NgU-jA-HHI"/>
