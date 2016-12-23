@@ -55,7 +55,7 @@ class AddCardVC: UIViewController,UITextFieldDelegate{
             let cardNumber = Int(textCardNumber.text!)
             let cvv2 = Int(textCvv2.text!)
             let expirationDate = textExpDate.text!
-            card = Card(num: cardNumber!, crdName: cardName, exprdate: expirationDate, cvv2: cvv2!,bankName: nil)
+            card = Card(num: cardNumber!, crdName: cardName, exprdate: expirationDate, cvv2: cvv2!,bankName: "pasargad")
             self.performSegue(withIdentifier: "unwindtolist", sender: self)
         }
     }
