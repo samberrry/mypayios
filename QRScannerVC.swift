@@ -174,7 +174,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
     }
     
     func addItemToBillList(goods: Goods) {
-        MainTableVC.goodsList.append(goods)
+        ShoppingList.goodsList.append(goods)
     }
     
     func found(code: String) {
