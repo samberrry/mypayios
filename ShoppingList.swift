@@ -13,6 +13,8 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
     //MARK: Properties
     @IBOutlet weak var tableView: UITableView!
     static var goodsList = [Goods]()
+    @IBOutlet weak var buttonPay: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -30,6 +32,11 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        if ShoppingList.goodsList.count != 0 {
+            buttonPay.isEnabled = true
+        }else{
+            buttonPay.isEnabled = false
+        }
         tableView.reloadData()
     }
     
@@ -73,6 +80,9 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
         if editingStyle == .delete {
             // Delete the row from the data source
             ShoppingList.goodsList.remove(at: indexPath.row)
+            if ShoppingList.goodsList.count == 0 {
+                buttonPay.isEnabled = false
+            }
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

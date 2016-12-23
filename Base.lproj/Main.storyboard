@@ -503,8 +503,8 @@
                                 <rect key="frame" x="0.0" y="560" width="375" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.4801336527861485" green="0.80705553756476678" blue="0.64125831764278152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Pay Here">
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="I'll pay here">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
@@ -519,6 +519,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonPay" destination="Pac-VH-Noo" id="kXV-KB-OwS"/>
                         <outlet property="tableView" destination="Taf-dg-nEf" id="2zq-9u-V5o"/>
                     </connections>
                 </viewController>
