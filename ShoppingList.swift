@@ -15,6 +15,8 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
     static var goodsList = [Goods]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
         if let savedCards = loadCards(){
             CardsTableVC.cards += savedCards
         }else{
@@ -37,12 +39,12 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
 
     // MARK: - Table view data source
-
+    
      func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return ShoppingList.goodsList.count
