@@ -457,7 +457,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Taf-dg-nEf">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="558"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -500,9 +500,12 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pac-VH-Noo">
-                                <rect key="frame" x="156" y="580" width="62" height="30"/>
+                                <rect key="frame" x="0.0" y="560" width="375" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Pay Here"/>
+                                <color key="backgroundColor" red="0.4801336527861485" green="0.80705553756476678" blue="0.64125831764278152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Pay Here">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -520,7 +523,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vSf-K0-kdn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4654" y="878"/>
+            <point key="canvasLocation" x="4653.6000000000004" y="877.51124437781118"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yNU-rr-qM9">
@@ -562,7 +565,9 @@
         <scene sceneID="ZJU-ZH-8hB">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ejs-md-9Hy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Shopping List" id="jwy-Gx-WD2"/>
+                    <tabBarItem key="tabBarItem" title="Shopping List" id="jwy-Gx-WD2">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-10"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dII-qp-TlF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
