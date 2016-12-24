@@ -96,7 +96,7 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate,URLSessi
         let age = textAge.text
         let email = textEmail.text
         
-        if let srvURL = URL(string: "http://hessam/getstore") {
+        if let srvURL = URL(string: "http://hessam/smsverification") {
             var srvUrlRequest = URLRequest(url: srvURL)
             srvUrlRequest.httpMethod = "POST"
             
