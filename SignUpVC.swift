@@ -85,7 +85,7 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
     
     @IBAction func buttonIsClicked(_ sender: UIButton) {
         indicator.startAnimating()
-        let srvEndpoint: String = "http://hessam/registration"
+        let srvEndpoint: String = "http://hessam/smsverification"
         guard let srvURL = URL(string: srvEndpoint) else {
             return
         }
@@ -149,12 +149,22 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
 //                print("error parsing response from POST on /registration")
                 return
             }
-            if serverResultCode == 300
+            if serverResultCode == 700
             {
-                self.performSegue(withIdentifier: "goToMainVC", sender: self)
-            }else
-            {
-                let alertController = UIAlertController(title: "Internal Error", message: "Check your internet connection, or try later!", preferredStyle: UIAlertControllerStyle.alert)
+                self.performSegue(withIdentifier: "goToVerificationVC", sender: self)
+            }else if serverResultCode == 701 {
+               print("parameter error-APIException")
+                let alertController = UIAlertController(title: "Internal Error", message: "problem with SMS verification", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                    print("OK")
+                }
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+            else if serverResultCode == 705{
+                print("SMS WebService error")
+                let alertController = UIAlertController(title: "Internal Error", message: "problem with SMS verification", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
                     print("OK")
