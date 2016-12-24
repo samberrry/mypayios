@@ -34,7 +34,7 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
     override func viewDidAppear(_ animated: Bool) {
         if ShoppingList.goodsList.count != 0 {
             buttonPay.isEnabled = true
-        }else{
+        }else if ShoppingList.goodsList.count == 0 {
             buttonPay.isEnabled = false
         }
         tableView.reloadData()

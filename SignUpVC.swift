@@ -162,7 +162,7 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
                 alertController.addAction(okAction)
                 self.present(alertController, animated: true, completion: nil)
             }
-            else if serverResultCode == 705{
+            else {
                 print("SMS WebService error")
                 let alertController = UIAlertController(title: "Internal Error", message: "problem with SMS verification", preferredStyle: UIAlertControllerStyle.alert)
                 
