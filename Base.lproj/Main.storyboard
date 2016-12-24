@@ -166,6 +166,7 @@
                     </view>
                     <connections>
                         <outlet property="textVerification" destination="xd0-ow-CHI" id="j0g-gw-LDO"/>
+                        <outlet property="verifyButton" destination="OdL-dl-I9F" id="kGI-m1-S0G"/>
                         <segue destination="eWb-Eg-gc4" kind="presentation" identifier="goToMainVC" id="AfP-AF-qIV"/>
                     </connections>
                 </viewController>
