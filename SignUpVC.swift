@@ -34,8 +34,6 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
         textAge.delegate = self
         buttonSend.isEnabled = false
         switchTerms.isOn = false
-        let val = Int(slider.value)
-        textAge.text = String(val)
     }
 
     override func didReceiveMemoryWarning() {

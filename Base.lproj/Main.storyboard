@@ -119,12 +119,59 @@
                         <outlet property="textPassword" destination="MXj-MD-MnU" id="KQH-CY-tt3"/>
                         <outlet property="textPhoneNumber" destination="evg-bs-xg6" id="5qc-gQ-LEq"/>
                         <outlet property="textUsername" destination="hpx-ne-w5P" id="RUa-Uf-vJ3"/>
-                        <segue destination="eWb-Eg-gc4" kind="presentation" identifier="goToMainVC" id="NgU-jA-HHI"/>
+                        <segue destination="3bk-qT-B7o" kind="show" identifier="goToVerificationVC" id="Fch-8B-rS8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076" y="164"/>
+            <point key="canvasLocation" x="217" y="363"/>
+        </scene>
+        <!--VerificationVC-->
+        <scene sceneID="MxG-xw-0Iy">
+            <objects>
+                <viewController id="3bk-qT-B7o" customClass="VerificationVC" customModule="mypay" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="E1W-bL-Iql"/>
+                        <viewControllerLayoutGuide type="bottom" id="y6D-yT-fkK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fln-e2-cAr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xd0-ow-CHI">
+                                <rect key="frame" x="139" y="198" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verification code has been sent to you. Enter it here :" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2x-mK-T1C">
+                                <rect key="frame" x="48" y="120" width="280" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdL-dl-I9F">
+                                <rect key="frame" x="150" y="261" width="75" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Verify"/>
+                                <connections>
+                                    <action selector="verifyIsClicked:" destination="3bk-qT-B7o" eventType="touchUpInside" id="fa6-rY-E2n"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="textVerification" destination="xd0-ow-CHI" id="j0g-gw-LDO"/>
+                        <segue destination="eWb-Eg-gc4" kind="presentation" identifier="goToMainVC" id="AfP-AF-qIV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Fk-Vy-dfX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1197.5999999999999" y="362.96851574212894"/>
         </scene>
         <!--QR Scanner-->
         <scene sceneID="YBu-4q-fpe">
@@ -275,7 +322,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uRD-Ca-aXq" id="ljL-t6-IYP">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Card name : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iI6-UJ-bwx">
@@ -399,7 +446,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BYV-te-wWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076" y="913.49325337331345"/>
+            <point key="canvasLocation" x="-732" y="947"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pDl-VI-E0Z">
@@ -442,7 +489,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xey-bd-j3p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="913.49325337331345"/>
+            <point key="canvasLocation" x="-1550" y="947"/>
         </scene>
         <!--Your List-->
         <scene sceneID="Hww-ou-xL7">
@@ -465,7 +512,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YiU-UV-eBT" id="fmK-Jv-Seq">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3W-qZ-OuS">
@@ -591,6 +638,6 @@
         <image name="qr" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NgU-jA-HHI"/>
+        <segue reference="AfP-AF-qIV"/>
     </inferredMetricsTieBreakers>
 </document>
