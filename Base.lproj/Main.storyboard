@@ -148,7 +148,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verification code has been sent to you. Enter it here :" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2x-mK-T1C">
                                 <rect key="frame" x="48" y="120" width="280" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -161,10 +161,15 @@
                                     <action selector="verifyIsClicked:" destination="3bk-qT-B7o" eventType="touchUpInside" id="t6e-8j-unb"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="K56-qY-YlW">
+                                <rect key="frame" x="178" y="323" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="indicator" destination="K56-qY-YlW" id="R8G-KV-VfI"/>
                         <outlet property="textVerification" destination="xd0-ow-CHI" id="j0g-gw-LDO"/>
                         <outlet property="verifyButton" destination="OdL-dl-I9F" id="kGI-m1-S0G"/>
                         <segue destination="eWb-Eg-gc4" kind="presentation" identifier="goToMainVC" id="AfP-AF-qIV"/>

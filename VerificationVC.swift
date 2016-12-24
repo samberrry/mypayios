@@ -12,6 +12,7 @@ class VerificationVC: UIViewController,UITextFieldDelegate {
     //MARK: Properties
     @IBOutlet weak var textVerification: UITextField!
     @IBOutlet weak var verifyButton: UIButton!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,7 @@ class VerificationVC: UIViewController,UITextFieldDelegate {
     
     @IBAction func verifyIsClicked(_ sender: UIButton) {
         
+        indicator.startAnimating()
         let srvEndpoint: String = "http://hessam/completesignup"
         guard let srvURL = URL(string: srvEndpoint) else {
             return
@@ -106,6 +108,7 @@ class VerificationVC: UIViewController,UITextFieldDelegate {
                 alertController.addAction(okAction)
                 self.present(alertController, animated: true, completion: nil)
             }
+            self.indicator.stopAnimating()
         }
         task.resume()
     }
