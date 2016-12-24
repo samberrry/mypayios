@@ -153,12 +153,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdL-dl-I9F">
-                                <rect key="frame" x="150" y="261" width="75" height="36"/>
+                                <rect key="frame" x="151" y="261" width="75" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Verify"/>
                                 <connections>
-                                    <action selector="verifyIsClicked:" destination="3bk-qT-B7o" eventType="touchUpInside" id="fa6-rY-E2n"/>
+                                    <action selector="verifyIsClicked:" destination="3bk-qT-B7o" eventType="touchUpInside" id="t6e-8j-unb"/>
                                 </connections>
                             </button>
                         </subviews>

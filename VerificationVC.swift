@@ -23,7 +23,9 @@ class VerificationVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    @IBAction func verifyIsClicked(_ sender: UIButton) {
+        
+    }
 
     /*
     // MARK: - Navigation
