@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
+class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate,URLSessionDataDelegate{
     
     //Mark: UI Properties
     
@@ -85,12 +85,10 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
     
     @IBAction func buttonIsClicked(_ sender: UIButton) {
         indicator.startAnimating()
-        let srvEndpoint: String = "http://hessam/smsverification"
-        guard let srvURL = URL(string: srvEndpoint) else {
-            return
-        }
-        var srvUrlRequest = URLRequest(url: srvURL)
-        srvUrlRequest.httpMethod = "POST"
+        let defaultConfiguration = URLSessionConfiguration.default
+        let delegate = self
+        let operationQueue = OperationQueue.main
+        let defaultSession = URLSession(configuration: defaultConfiguration, delegate: delegate, delegateQueue: operationQueue)
 
         let username = textUsername.text
         let password = textPassword.text
@@ -98,83 +96,87 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate{
         let age = textAge.text
         let email = textEmail.text
         
-        let body = BodyMaker()
-        body.appednKeyValue(key: "username", value: username!)
-        body.appednKeyValue(key: "password", value: password!)
-        body.appednKeyValue(key: "phone", value: phone!)
-        body.appednKeyValue(key: "email", value: email!)
-        body.appednKeyValue(key: "age", value: age!)
+        if let srvURL = URL(string: "http://hessam/getstore") {
+            var srvUrlRequest = URLRequest(url: srvURL)
+            srvUrlRequest.httpMethod = "POST"
+            
+            let body = BodyMaker()
+            body.appednKeyValue(key: "username", value: username!)
+            body.appednKeyValue(key: "password", value: password!)
+            body.appednKeyValue(key: "phone", value: phone!)
+            body.appednKeyValue(key: "email", value: email!)
+            body.appednKeyValue(key: "age", value: age!)
+            
+            let bodyString  = body.getBody()
+            srvUrlRequest.httpBody = bodyString?.data(using: String.Encoding.utf8)
+            let dataTask = defaultSession.dataTask(with: srvUrlRequest)
+            dataTask.resume()
+        }
+    }
+    
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        var serverResultCode: Int?
         
-        let bodyString  = body.getBody()
-        srvUrlRequest.httpBody = bodyString?.data(using: String.Encoding.utf8)
+        let responseData = data
         
-        let session = URLSession.shared
-        
-        let task = session.dataTask(with: srvUrlRequest) {
-            (data, response, error) in
-            var serverResultCode: Int?
-            guard error == nil else {
-                let alertController = UIAlertController(title: "Network Error", message: "Check your internet connection, or try later!", preferredStyle: UIAlertControllerStyle.alert)
-                
-                let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                    print("OK")
-                }
-                alertController.addAction(okAction)
-                self.present(alertController, animated: true, completion: nil)
-                self.indicator.stopAnimating()
-                //  print("error calling POST on /registration")
-//                print(error)
-                return
-            }
-            guard let responseData = data else {
-                //  print("Error: did not receive data")
+        // parse the result as JSON, since that's what the API provides
+        do {
+            guard let receivedData = try JSONSerialization.jsonObject(with: responseData,options: []) as? [String: Any] else {
+                // print("Could not get JSON from responseData as dictionary")
                 return
             }
             
-            //  parse the result as JSON, since that's what the API provides
-            do {
-                guard let receivedData = try JSONSerialization.jsonObject(with: responseData,options: []) as? [String: Any] else {
-                    // print("Could not get JSON from responseData as dictionary")
-                    return
-                }
+            guard let resutlCode = receivedData["resultcode"] as? Int else {
+                // print("Could not get resultcode as int from JSON")
                 
-                guard let resutlCode = receivedData["resultcode"] as? Int else {
-//                    print("Could not get resultcode as int from JSON")
-                    
-                    return
-                }
-                serverResultCode = resutlCode
-                
-            } catch  {
-//                print("error parsing response from POST on /registration")
                 return
             }
-            if serverResultCode == 700
-            {
-                self.performSegue(withIdentifier: "goToVerificationVC", sender: self)
-            }else if serverResultCode == 701 {
-               print("parameter error-APIException")
-                let alertController = UIAlertController(title: "Internal Error", message: "problem with SMS verification", preferredStyle: UIAlertControllerStyle.alert)
-                
-                let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                    print("OK")
-                }
-                alertController.addAction(okAction)
-                self.present(alertController, animated: true, completion: nil)
-            }
-            else {
-                print("SMS WebService error")
-                let alertController = UIAlertController(title: "Internal Error", message: "problem with SMS verification", preferredStyle: UIAlertControllerStyle.alert)
-                
-                let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                    print("OK")
-                }
-                alertController.addAction(okAction)
-                self.present(alertController, animated: true, completion: nil)
-            }
-            self.indicator.stopAnimating()
+            serverResultCode = resutlCode
+            
+        } catch  {
+            // print("error parsing response from POST on /registration")
+            return
         }
-        task.resume()
+        if serverResultCode == 700
+        {
+            self.performSegue(withIdentifier: "goToVerificationVC", sender: self)
+        }else if serverResultCode == 701 {
+            print("parameter error-APIException")
+            let alertController = UIAlertController(title: "Internal Error", message: "problem with SMS verification", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else {
+            print("SMS WebService error")
+            let alertController = UIAlertController(title: "Internal Error", message: "problem with SMS verification", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        self.indicator.stopAnimating()
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        guard error == nil else {
+            let alertController = UIAlertController(title: "Network Error", message: "Check your internet connection, or try later!", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+            self.indicator.stopAnimating()
+            //  print("error calling POST on /registration")
+            //                print(error)
+            return
+        }
     }
     
 }
