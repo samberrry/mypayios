@@ -113,7 +113,7 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate,URLSessi
             dataTask.resume()
         }
     }
-    
+    //*************************
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         var serverResultCode: Int?
         
@@ -162,7 +162,7 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate,URLSessi
         }
         self.indicator.stopAnimating()
     }
-    
+    //*********************
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         guard error == nil else {
             let alertController = UIAlertController(title: "Network Error", message: "Check your internet connection, or try later!", preferredStyle: UIAlertControllerStyle.alert)
