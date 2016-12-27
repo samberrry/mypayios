@@ -661,7 +661,7 @@
         <scene sceneID="cV8-HS-ebX">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qwk-Z0-qb7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="GVW-wz-wii">
+                    <tabBarItem key="tabBarItem" title="Profile" image="profile" id="GVW-wz-wii">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -682,6 +682,7 @@
     <resources>
         <image name="item" width="25" height="25"/>
         <image name="mypay" width="87" height="87"/>
+        <image name="profile" width="25" height="25"/>
         <image name="qr" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
