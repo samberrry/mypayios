@@ -14,6 +14,7 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
     @IBOutlet weak var tableView: UITableView!
     static var goodsList = [Goods]()
     @IBOutlet weak var buttonPay: UIButton!
+    var btnColor: UIColor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
         }else{
             print("failed to load data!")
         }
+        btnColor = buttonPay.backgroundColor
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -34,7 +36,9 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
     override func viewDidAppear(_ animated: Bool) {
         if ShoppingList.goodsList.count != 0 {
             buttonPay.isEnabled = true
+            buttonPay.backgroundColor = btnColor
         }else if ShoppingList.goodsList.count == 0 {
+            buttonPay.backgroundColor = UIColor.gray
             buttonPay.isEnabled = false
         }
         tableView.reloadData()
@@ -81,6 +85,7 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
             // Delete the row from the data source
             ShoppingList.goodsList.remove(at: indexPath.row)
             if ShoppingList.goodsList.count == 0 {
+                buttonPay.backgroundColor = UIColor.gray
                 buttonPay.isEnabled = false
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
