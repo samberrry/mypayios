@@ -32,22 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager.startMonitoring(for: region)
         locationManager.delegate = self
         
-        //Loading initial state
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let defaults = UserDefaults.standard
-        self.cookie = defaults.object(forKey: "cookie") as? HTTPCookie
-        
-        if let storedCookie = self.cookie {
-            HTTPCookieStorage.shared.setCookie(storedCookie)
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "listnavigation")
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
-        } else {
-            let initialViewController = storyboard.instantiateViewController(withIdentifier: "signinnavigation")
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
-        }
+        let initialViewController = storyboard.instantiateViewController(withIdentifier: "signinnavigation")
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
         
         return true
     }
@@ -69,6 +58,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        //Loading initial state
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let defaults = UserDefaults.standard
+        self.cookie = defaults.object(forKey: "cookie") as? HTTPCookie
+        
+        if let storedCookie = self.cookie {
+            HTTPCookieStorage.shared.setCookie(storedCookie)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "listnavigation")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        } else {
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "signinnavigation")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
