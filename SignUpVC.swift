@@ -139,6 +139,10 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate,URLSessi
         }
         if serverResultCode == 700
         {
+            let defaults = UserDefaults.standard
+            defaults.set(true, forKey: "authenticated")
+            defaults.set(textUsername.text, forKey: "username")
+            defaults.set(textPassword.text, forKey: "password")
             self.performSegue(withIdentifier: "goToVerificationVC", sender: self)
         }else if serverResultCode == 701 {
             print("parameter error-APIException")

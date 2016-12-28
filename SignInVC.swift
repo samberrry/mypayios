@@ -15,6 +15,8 @@ class SignInVC: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var textPassword: UITextField!
     @IBOutlet weak var buttonSignin: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
+    var username: String?
+    var password: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,8 @@ class SignInVC: UIViewController,UITextFieldDelegate {
         var srvUrlRequest = URLRequest(url: srvURL)
         srvUrlRequest.httpMethod = "POST"
         
+        self.username = textusername.text
+        self.password = textPassword.text
         let username = textusername.text
         let password = textPassword.text
         
@@ -100,6 +104,10 @@ class SignInVC: UIViewController,UITextFieldDelegate {
             }
             if serverResultCode == 200
             {
+                let defaults = UserDefaults.standard
+                defaults.set(true, forKey: "authenticated")
+                defaults.set(self.username, forKey: "username")
+                defaults.set(self.password, forKey: "password")
                 self.performSegue(withIdentifier: "goToMainVC", sender: self)
             }else if serverResultCode == 101 {
                 let alertController = UIAlertController(title: "Authentication Failed", message: "Your username or password is incorrect!", preferredStyle: UIAlertControllerStyle.alert)
