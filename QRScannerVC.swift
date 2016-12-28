@@ -78,11 +78,17 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        beaconPresenceNotificatoin()
 //        if (captureSession?.isRunning == false) {
 //            captureSession.startRunning();
 //        }
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        beaconPresenceNotificatoin()
+    }
+    
+    func beaconPresenceNotificatoin() {
         if  defaults.bool(forKey: "storestate") {
             let storename = defaults.object(forKey: "storename")
             let alertController = UIAlertController(title: "Message", message: "you are at: \(storename!) store", preferredStyle: UIAlertControllerStyle.alert)
