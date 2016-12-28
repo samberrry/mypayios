@@ -638,10 +638,10 @@
             </objects>
             <point key="canvasLocation" x="3302" y="879"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="fDS-Eb-4k5">
             <objects>
-                <viewController id="kjX-RM-fBV" sceneMemberID="viewController">
+                <viewController id="kjX-RM-fBV" customClass="SettingsViewController" customModule="mypay" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BKU-FC-RJk"/>
                         <viewControllerLayoutGuide type="bottom" id="Cn0-km-TBg"/>
@@ -656,15 +656,22 @@
                                 <state key="normal" title="Sign out from account">
                                     <color key="titleColor" red="0.90932642490000004" green="0.20243884770000001" blue="0.1161458746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="signOutIsClicked:" destination="kjX-RM-fBV" eventType="touchUpInside" id="oUs-G4-htD"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="U63-Ll-4Uo"/>
+                    <connections>
+                        <outlet property="signOutIsClicked" destination="fcb-rk-Les" id="dTv-nY-Kar"/>
+                        <segue destination="LKF-mp-tgZ" kind="presentation" identifier="goToSignIn" id="3bR-et-6Jk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y6M-Q6-CjG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4240.8000000000002" y="1748.2758620689656"/>
+            <point key="canvasLocation" x="4244" y="1748"/>
         </scene>
         <!--Settings-->
         <scene sceneID="cV8-HS-ebX">

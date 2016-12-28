@@ -1,5 +1,5 @@
 //
-//  SettingsVC.swift
+//  SettingsViewController.swift
 //  mypay
 //
 //  Created by Hessam on 12/28/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsVC: UIViewController {
+class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,14 @@ class SettingsVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func signOutIsClicked(_ sender: UIButton) {
+        let defaults = UserDefaults.standard
+        defaults.set(false, forKey: "authenticated")
+        defaults.set("", forKey: "username")
+        defaults.set("", forKey: "password")
+        performSegue(withIdentifier: "goToSignIn", sender: self)
+    }
+    
     /*
     // MARK: - Navigation
 
