@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
         // Notification Authorization
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             // Enable or disable features based on authorization
@@ -30,6 +31,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager.requestAlwaysAuthorization()
         locationManager.startMonitoring(for: region)
         locationManager.delegate = self
+        
+        //Loading initial state
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let defaults = UserDefaults.standard
+        self.cookie = defaults.object(forKey: "cookie") as? HTTPCookie
+        
+        if let storedCookie = self.cookie {
+            HTTPCookieStorage.shared.setCookie(storedCookie)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "listnavigation")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        } else {
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "signinnavigation")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        }
+        
         return true
     }
 
@@ -42,6 +61,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         self.cookie = HTTPCookieStorage.shared.cookies?[0]
+        let defaults = UserDefaults.standard
+        defaults.set(self.cookie, forKey: "cookie")
+        
         
     }
 

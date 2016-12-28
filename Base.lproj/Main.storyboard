@@ -457,7 +457,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="pDl-VI-E0Z">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="eWb-Eg-gc4" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="listnavigation" automaticallyAdjustsScrollViewInsets="NO" id="eWb-Eg-gc4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="jDS-PK-rSJ">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -477,7 +477,7 @@
         <!--Navigation Controller-->
         <scene sceneID="tMa-ac-Msf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LKF-mp-tgZ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="signinnavigation" automaticallyAdjustsScrollViewInsets="NO" id="LKF-mp-tgZ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Eq-Rq-sLF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -686,6 +686,6 @@
         <image name="settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AfP-AF-qIV"/>
+        <segue reference="8go-9U-qew"/>
     </inferredMetricsTieBreakers>
 </document>
