@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var window: UIWindow?
     static var storeName: String?
     static var storeID: Int?
+    let defaults = UserDefaults.standard
     //MARK: Properties
     let locationManager = CLLocationManager()
     let region = CLBeaconRegion(proximityUUID: NSUUID(uuidString: "163EB541-B100-4BA5-8652-EB0C513FB0F4")! as UUID , identifier: "mypay")
@@ -87,9 +88,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        Store.state = false
-        Store.name = nil
-        Store.storeID = nil
+        defaults.set(false, forKey: "storestate")
+        defaults.set(nil, forKey: "storename")
+        defaults.set(nil, forKey: "storeid")
+        defaults.synchronize()
         let content = UNMutableNotificationContent()
         content.title = "heey!"
         content.body = "you left the Beacon area"
@@ -173,9 +175,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         if serverResultCode == 500
         {
-            Store.state = true
-            Store.name = serverStoreName
-            Store.storeID = serverStoreID
+            defaults.set(true, forKey: "storestate")
+            defaults.set(serverStoreName, forKey: "storename")
+            defaults.set(serverStoreID, forKey: "storeid")
             print(serverMetaData!)
 //            AppDelegate.storeName = serverStoreName
 //            AppDelegate.storeID = serverStoreID

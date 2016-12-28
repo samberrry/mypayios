@@ -17,6 +17,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
     
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,8 +83,8 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
 //            captureSession.startRunning();
 //        }
         
-        if  Store.state {
-            let storename = Store.name
+        if  defaults.bool(forKey: "storestate") {
+            let storename = defaults.object(forKey: "storename")
             let alertController = UIAlertController(title: "Message", message: "you are at: \(storename!) store", preferredStyle: UIAlertControllerStyle.alert)
             
             let okAction = UIAlertAction(title: "let's scann", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
@@ -92,10 +93,10 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
             
-            Store.state = false
+            defaults.set(false, forKey: "storestate")
             view.layer.addSublayer(previewLayer)
             captureSession.startRunning()
-        }else if Store.name != nil{
+        }else if defaults.object(forKey: "storename") != nil{
             view.layer.addSublayer(previewLayer)
             captureSession.startRunning()
         }else {
