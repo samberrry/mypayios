@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var window: UIWindow?
     static var storeName: String?
     static var storeID: Int?
+    var cookie: HTTPCookie?
     //MARK: Properties
     let locationManager = CLLocationManager()
     let region = CLBeaconRegion(proximityUUID: NSUUID(uuidString: "163EB541-B100-4BA5-8652-EB0C513FB0F4")! as UUID , identifier: "mypay")
@@ -40,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        self.cookie = HTTPCookieStorage.shared.cookies?[0]
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
