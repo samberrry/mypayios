@@ -78,10 +78,6 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        beaconPresenceNotificatoin()
-//        if (captureSession?.isRunning == false) {
-//            captureSession.startRunning();
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
