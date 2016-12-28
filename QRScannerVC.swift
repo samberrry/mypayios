@@ -96,6 +96,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
             self.present(alertController, animated: true, completion: nil)
             
             defaults.set(false, forKey: "storestate")
+            defaults.synchronize()
             view.layer.addSublayer(previewLayer)
             captureSession.startRunning()
         }else if defaults.object(forKey: "storename") != nil{
