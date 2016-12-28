@@ -651,9 +651,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcb-rk-Les">
-                                <rect key="frame" x="36" y="560" width="152" height="30"/>
+                                <rect key="frame" x="97" y="547" width="181" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign out from account">
+                                <state key="normal" title="Sign out from this account">
                                     <color key="titleColor" red="0.90932642490000004" green="0.20243884770000001" blue="0.1161458746" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
