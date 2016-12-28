@@ -108,6 +108,7 @@ class SignInVC: UIViewController,UITextFieldDelegate {
                 defaults.set(true, forKey: "authenticated")
                 defaults.set(self.username, forKey: "username")
                 defaults.set(self.password, forKey: "password")
+                defaults.synchronize()
                 self.performSegue(withIdentifier: "goToMainVC", sender: self)
             }else if serverResultCode == 101 {
                 let alertController = UIAlertController(title: "Authentication Failed", message: "Your username or password is incorrect!", preferredStyle: UIAlertControllerStyle.alert)

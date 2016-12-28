@@ -143,6 +143,7 @@ class SignUpVC: UIViewController,UITextFieldDelegate,URLSessionDelegate,URLSessi
             defaults.set(true, forKey: "authenticated")
             defaults.set(textUsername.text, forKey: "username")
             defaults.set(textPassword.text, forKey: "password")
+            defaults.synchronize()
             self.performSegue(withIdentifier: "goToVerificationVC", sender: self)
         }else if serverResultCode == 701 {
             print("parameter error-APIException")
