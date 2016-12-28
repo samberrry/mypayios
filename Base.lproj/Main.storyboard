@@ -665,7 +665,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="U63-Ll-4Uo"/>
                     <connections>
-                        <outlet property="signOutIsClicked" destination="fcb-rk-Les" id="dTv-nY-Kar"/>
                         <segue destination="LKF-mp-tgZ" kind="presentation" identifier="goToSignIn" id="3bR-et-6Jk"/>
                     </connections>
                 </viewController>
