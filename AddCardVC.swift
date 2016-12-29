@@ -50,13 +50,21 @@ class AddCardVC: UIViewController,UITextFieldDelegate{
      */
     
     @IBAction func saveButtonIsClicked(_ sender: UIBarButtonItem) {
-        if textCardName.text != nil && textCardNumber.text != nil && textCvv2 != nil && textExpDate != nil{
+        if !(textCardName.text!.isEmpty) && !(textCardNumber.text!.isEmpty) && !(textCvv2.text!.isEmpty) && !(textExpDate.text!.isEmpty){
             let cardName = textCardName.text!
             let cardNumber = Int(textCardNumber.text!)
             let cvv2 = Int(textCvv2.text!)
             let expirationDate = textExpDate.text!
             card = Card(num: cardNumber!, crdName: cardName, exprdate: expirationDate, cvv2: cvv2!,bankName: "pasargad")
             self.performSegue(withIdentifier: "unwindtolist", sender: self)
+        }else {
+            let alertController = UIAlertController(title: "Notice", message: "please, fill in the empty fields", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
