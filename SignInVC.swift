@@ -54,82 +54,93 @@ class SignInVC: UIViewController,UITextFieldDelegate {
         let username = textusername.text
         let password = textPassword.text
         
-        let body = BodyMaker()
-        body.appednKeyValue(key: "username", value: username!)
-        body.appednKeyValue(key: "password", value: password!)
-        
-        let bodyString  = body.getBody()
-        srvUrlRequest.httpBody = bodyString?.data(using: String.Encoding.utf8)
-        
-        let session = URLSession.shared
-        
-        let task = session.dataTask(with: srvUrlRequest) {
-            (data, response, error) in
-            var serverResultCode: Int?
-            guard error == nil else {
-                let alertController = UIAlertController(title: "Network Error", message: "Check your internet connection, or try later!", preferredStyle: UIAlertControllerStyle.alert)
-                
-                let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                    print("OK")
-                }
-                alertController.addAction(okAction)
-                self.indicator.stopAnimating()
-                self.present(alertController, animated: true, completion: nil)
-                //  print("error calling POST on /registration")
-                //                print(error)
-                return
-            }
-            guard let responseData = data else {
-                //  print("Error: did not receive data")
-                return
-            }
+        if !(username!.isEmpty) && !(password!.isEmpty)
+        {
+            let body = BodyMaker()
+            body.appednKeyValue(key: "username", value: username!)
+            body.appednKeyValue(key: "password", value: password!)
             
-            //  parse the result as JSON, since that's what the API provides
-            do {
-                guard let receivedData = try JSONSerialization.jsonObject(with: responseData,options: []) as? [String: Any] else {
-                    // print("Could not get JSON from responseData as dictionary")
-                    return
-                }
-                
-                guard let resutlCode = receivedData["resultcode"] as? Int else {
-                    //print("Could not get resultcode as int from JSON")
+            let bodyString  = body.getBody()
+            srvUrlRequest.httpBody = bodyString?.data(using: String.Encoding.utf8)
+            
+            let session = URLSession.shared
+            
+            let task = session.dataTask(with: srvUrlRequest) {
+                (data, response, error) in
+                var serverResultCode: Int?
+                guard error == nil else {
+                    let alertController = UIAlertController(title: "Network Error", message: "Check your internet connection, or try later!", preferredStyle: UIAlertControllerStyle.alert)
                     
+                    let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                        print("OK")
+                    }
+                    alertController.addAction(okAction)
+                    self.indicator.stopAnimating()
+                    self.present(alertController, animated: true, completion: nil)
+                    //  print("error calling POST on /registration")
+                    //                print(error)
                     return
                 }
-                serverResultCode = resutlCode
-                
-            } catch  {
-                //print("error parsing response from POST on /registration")
-                return
-            }
-            if serverResultCode == 200
-            {
-                let defaults = UserDefaults.standard
-                defaults.set(true, forKey: "authenticated")
-                defaults.set(self.username, forKey: "username")
-                defaults.set(self.password, forKey: "password")
-                defaults.synchronize()
-                self.performSegue(withIdentifier: "goToMainVC", sender: self)
-            }else if serverResultCode == 101 {
-                let alertController = UIAlertController(title: "Authentication Failed", message: "Your username or password is incorrect!", preferredStyle: UIAlertControllerStyle.alert)
-                let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                    print("OK")
+                guard let responseData = data else {
+                    //  print("Error: did not receive data")
+                    return
                 }
-                alertController.addAction(okAction)
-                self.indicator.stopAnimating()
-                self.present(alertController, animated: true, completion: nil)
-            }else{
-                let alertController = UIAlertController(title: "Internal Error", message: "Check your internet connection, or try later!", preferredStyle: UIAlertControllerStyle.alert)
                 
-                let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                    print("OK")
+                //  parse the result as JSON, since that's what the API provides
+                do {
+                    guard let receivedData = try JSONSerialization.jsonObject(with: responseData,options: []) as? [String: Any] else {
+                        // print("Could not get JSON from responseData as dictionary")
+                        return
+                    }
+                    
+                    guard let resutlCode = receivedData["resultcode"] as? Int else {
+                        //print("Could not get resultcode as int from JSON")
+                        
+                        return
+                    }
+                    serverResultCode = resutlCode
+                    
+                } catch  {
+                    //print("error parsing response from POST on /registration")
+                    return
                 }
-                alertController.addAction(okAction)
-                self.indicator.stopAnimating()
-                self.present(alertController, animated: true, completion: nil)
+                if serverResultCode == 200
+                {
+                    let defaults = UserDefaults.standard
+                    defaults.set(true, forKey: "authenticated")
+                    defaults.set(self.username, forKey: "username")
+                    defaults.set(self.password, forKey: "password")
+                    defaults.synchronize()
+                    self.performSegue(withIdentifier: "goToMainVC", sender: self)
+                }else if serverResultCode == 101 {
+                    let alertController = UIAlertController(title: "Authentication Failed", message: "Your username or password is incorrect!", preferredStyle: UIAlertControllerStyle.alert)
+                    let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                        print("OK")
+                    }
+                    alertController.addAction(okAction)
+                    self.indicator.stopAnimating()
+                    self.present(alertController, animated: true, completion: nil)
+                }else{
+                    let alertController = UIAlertController(title: "Internal Error", message: "Check your internet connection, or try later!", preferredStyle: UIAlertControllerStyle.alert)
+                    
+                    let okAction = UIAlertAction(title: "Try again", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                        print("OK")
+                    }
+                    alertController.addAction(okAction)
+                    self.indicator.stopAnimating()
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
+            task.resume()
+        }else {
+            let alertController = UIAlertController(title: "Notice", message: "please, fill in the username and password fields", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
         }
-        task.resume()
     }
 
 }
