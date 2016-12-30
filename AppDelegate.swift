@@ -32,8 +32,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager.startMonitoring(for: region)
         locationManager.delegate = self
         
+        //First Launch 
+        if !defaults.bool(forKey: "first") {
+            defaults.set(true, forKey: "first")
+            defaults.set(false, forKey: "storestate")
+            defaults.set(nil, forKey: "storename")
+            defaults.set(nil, forKey: "storeid")
+            defaults.synchronize()
+        }
+        
         //Loading initial state
-        let defaults = UserDefaults.standard
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if defaults.bool(forKey: "authenticated") {
@@ -178,6 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             defaults.set(true, forKey: "storestate")
             defaults.set(serverStoreName, forKey: "storename")
             defaults.set(serverStoreID, forKey: "storeid")
+            defaults.synchronize()
             print(serverMetaData!)
 //            AppDelegate.storeName = serverStoreName
 //            AppDelegate.storeID = serverStoreID
