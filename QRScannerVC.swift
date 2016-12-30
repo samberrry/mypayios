@@ -99,7 +99,7 @@ class QRScannerVC: UIViewController ,AVCaptureMetadataOutputObjectsDelegate{
             defaults.synchronize()
             view.layer.addSublayer(previewLayer)
             captureSession.startRunning()
-        }else if defaults.object(forKey: "storename") != nil{
+        }else if defaults.object(forKey: "storename") as? String != nil{
             view.layer.addSublayer(previewLayer)
             captureSession.startRunning()
         }else {
