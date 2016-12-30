@@ -40,7 +40,7 @@ class VerificationVC: UIViewController,UITextFieldDelegate {
     @IBAction func verifyIsClicked(_ sender: UIButton) {
         
         indicator.startAnimating()
-        let srvEndpoint: String = "http://hessam/completesignup"
+        let srvEndpoint: String = MyServer.Method.completeVerificationMethod
         guard let srvURL = URL(string: srvEndpoint) else {
             return
         }

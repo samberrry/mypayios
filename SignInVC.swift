@@ -42,7 +42,7 @@ class SignInVC: UIViewController,UITextFieldDelegate {
     
     @IBAction func signInClicked(_ sender: UIButton) {
         indicator.startAnimating()
-        let srvEndpoint: String = "http://hessam/signin"
+        let srvEndpoint: String = MyServer.Method.signInMethod
         guard let srvURL = URL(string: srvEndpoint) else {
             return
         }

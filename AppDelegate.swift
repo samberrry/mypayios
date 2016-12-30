@@ -118,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let operationQueue = OperationQueue.main
         let defaultSession = URLSession(configuration: defaultConfiguration, delegate: delegate, delegateQueue: operationQueue)
         
-        if let srvURL = URL(string: "http://hessam/getstore") {
+        if let srvURL = URL(string: MyServer.Method.getStoreMethod) {
             var srvUrlRequest = URLRequest(url: srvURL)
             srvUrlRequest.httpMethod = "POST"
             
