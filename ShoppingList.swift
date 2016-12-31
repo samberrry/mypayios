@@ -38,7 +38,7 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
             buttonPay.isEnabled = true
             buttonPay.backgroundColor = btnColor
         }else if ShoppingList.goodsList.count == 0 {
-            buttonPay.backgroundColor = UIColor.gray
+            buttonPay.backgroundColor = UIColor.lightGray
             buttonPay.isEnabled = false
         }
         tableView.reloadData()
@@ -85,7 +85,7 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
             // Delete the row from the data source
             ShoppingList.goodsList.remove(at: indexPath.row)
             if ShoppingList.goodsList.count == 0 {
-                buttonPay.backgroundColor = UIColor.gray
+                buttonPay.backgroundColor = UIColor.lightGray
                 buttonPay.isEnabled = false
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
