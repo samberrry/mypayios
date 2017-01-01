@@ -25,7 +25,8 @@ class Card: NSObject,NSCoding{
     }
     
     //Initialization
-    init(num: Int,crdName: String,exprdate: String,cvv2: Int, bankName: String?) {
+    init(num: Int?,crdName: String?,exprdate: String?,cvv2: Int?, bankName: String?)
+    {
         self.cardNumber = num
         self.cardName = crdName
         self.expirationDate = exprdate
@@ -36,7 +37,7 @@ class Card: NSObject,NSCoding{
     }
     //MARK: Archiving Paths
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("mycards")
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("mypaycards")
     
     //MARK: NSCoding
     func encode(with aCoder: NSCoder) {
@@ -48,11 +49,11 @@ class Card: NSObject,NSCoding{
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let num = aDecoder.decodeObject(forKey: Propertykey.cardNumberKey) as! Int
-        let crdName = aDecoder.decodeObject(forKey: Propertykey.cardNameKey) as! String
-        let exprdate = aDecoder.decodeObject(forKey: Propertykey.expirationDateKey) as! String
-        let cvv2 = aDecoder.decodeObject(forKey: Propertykey.cvv2Key) as! Int
-        let bankname = aDecoder.decodeObject(forKey: Propertykey.bankNameKey) as! String
+        let num = aDecoder.decodeObject(forKey: Propertykey.cardNumberKey) as? Int
+        let crdName = aDecoder.decodeObject(forKey: Propertykey.cardNameKey) as? String
+        let exprdate = aDecoder.decodeObject(forKey: Propertykey.expirationDateKey) as? String
+        let cvv2 = aDecoder.decodeObject(forKey: Propertykey.cvv2Key) as? Int
+        let bankname = aDecoder.decodeObject(forKey: Propertykey.bankNameKey) as? String
         self.init(num: num,crdName: crdName,exprdate: exprdate,cvv2: cvv2,bankName: bankname)
     }
 }
