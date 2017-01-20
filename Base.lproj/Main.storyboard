@@ -225,6 +225,33 @@
             </objects>
             <point key="canvasLocation" x="3301.5999999999999" y="164.16791604197903"/>
         </scene>
+        <!--BillVC-->
+        <scene sceneID="boZ-n4-TiQ">
+            <objects>
+                <viewController id="v4g-2O-4zL" customClass="BillVC" customModule="mypay" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DE3-Vx-G1l"/>
+                        <viewControllerLayoutGuide type="bottom" id="awe-gY-MFd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VMe-rF-1v5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Payment Page" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBn-Ad-xqU">
+                                <rect key="frame" x="132" y="143" width="110" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fdu-2n-55w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4653.6000000000004" y="82.3088455772114"/>
+        </scene>
         <!--Add CardVC-->
         <scene sceneID="fhU-zO-NSe">
             <objects>
@@ -561,6 +588,9 @@
                                 <state key="normal" title="I'll pay here">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="payHereButtonIsClicked:" destination="pbA-pZ-QzJ" eventType="touchUpInside" id="phj-Eg-Va3"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -575,11 +605,12 @@
                     <connections>
                         <outlet property="buttonPay" destination="Pac-VH-Noo" id="kXV-KB-OwS"/>
                         <outlet property="tableView" destination="Taf-dg-nEf" id="2zq-9u-V5o"/>
+                        <segue destination="v4g-2O-4zL" kind="show" identifier="goToBillVC" action="showDetailViewController:sender:" id="UFZ-WZ-H8u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vSf-K0-kdn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4653.6000000000004" y="877.51124437781118"/>
+            <point key="canvasLocation" x="4654" y="878"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yNU-rr-qM9">
@@ -701,6 +732,6 @@
         <image name="settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8go-9U-qew"/>
+        <segue reference="AfP-AF-qIV"/>
     </inferredMetricsTieBreakers>
 </document>

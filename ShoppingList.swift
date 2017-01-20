@@ -118,6 +118,13 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
         // Pass the selected object to the new view controller.
     }
     */
+
+    //MARK: PayHereButton
+    
+    @IBAction func payHereButtonIsClicked(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToBillVC", sender: self)
+    }
+    
     
     //MARK: NSCoding
     func loadCards() -> [Card]? {
