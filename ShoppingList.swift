@@ -42,6 +42,7 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
             tableView.isScrollEnabled = true
         }else{
         tableView.isScrollEnabled = false
+            navigationItem.title = "Your List"
         }
         
         if ShoppingList.goodsList.count != 0 {
