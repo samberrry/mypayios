@@ -492,9 +492,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Pha-1N-J2s" kind="relationship" relationship="viewControllers" id="eMw-OD-wMv"/>
                         <segue destination="ejs-md-9Hy" kind="relationship" relationship="viewControllers" id="rnb-TA-cle"/>
-                        <segue destination="qwk-Z0-qb7" kind="relationship" relationship="viewControllers" id="dPc-Qe-0xF"/>
+                        <segue destination="Pha-1N-J2s" kind="relationship" relationship="viewControllers" id="Lph-aA-RAj"/>
+                        <segue destination="qwk-Z0-qb7" kind="relationship" relationship="viewControllers" id="pz7-5z-av4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="794-e5-ayK" userLabel="First Responder" sceneMemberID="firstResponder"/>

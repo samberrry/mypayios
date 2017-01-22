@@ -34,6 +34,16 @@ class ShoppingList: UIViewController,UITableViewDelegate,UITableViewDataSource{
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        let defaults = UserDefaults.standard
+        let storename = defaults.object(forKey: "storename") as? String
+
+        if storename != nil {
+            navigationItem.title = "\(storename!) Store"
+            tableView.isScrollEnabled = true
+        }else{
+        tableView.isScrollEnabled = false
+        }
+        
         if ShoppingList.goodsList.count != 0 {
             buttonPay.isEnabled = true
             buttonPay.backgroundColor = btnColor
