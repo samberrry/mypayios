@@ -13,8 +13,6 @@ import UserNotifications
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate,URLSessionDelegate,URLSessionDataDelegate{
     var window: UIWindow?
-    static var storeName: String?
-    static var storeID: Int?
     let defaults = UserDefaults.standard
     //MARK: Properties
     let locationManager = CLLocationManager()
@@ -188,9 +186,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             defaults.set(serverStoreID, forKey: "storeid")
             defaults.synchronize()
             print(serverMetaData!)
-//            AppDelegate.storeName = serverStoreName
-//            AppDelegate.storeID = serverStoreID
-            
         }
     }
     //********************************************************
